@@ -5,15 +5,15 @@
 # Site
 title: b1ngsha's blog
 subtitle: ''
-description: ''
-keywords:
+description: SZU 2021/Backend Development
+keywords: Backend Development
 author: b1ngsha
-language: zh-CN
+language: en
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://b1ngsha.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:

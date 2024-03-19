@@ -88,7 +88,7 @@ mysqlbinlog [参数选项] logfilename
 	-w	将行事件重构为SQL语句，并输出注释信息
 ```
 
-> 试了半天，原来是直接在root下执行就可以，不用连接到mysql:sweat:
+> 试了半天，原来是直接在root下执行就可以，不用连接到mysql
 
 
 

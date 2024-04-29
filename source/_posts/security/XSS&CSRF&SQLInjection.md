@@ -1,8 +1,8 @@
 ---
 title: XSS? CSRF? SQL Injection?
 date: 2024-04-22 21:25:59
-tags: security
-categories: security
+tags: Security
+categories: Security
 ---
 Some common web security issues that you should know.
 <!--more-->

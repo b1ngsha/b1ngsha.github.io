@@ -24,7 +24,7 @@ RabbitMQ, and messaging in general, uses some jargon.
 
 # "Hello World"
 
-!["Hello Wordl"](https://b1ngsha-blog.oss-cn-beijing.aliyuncs.com/image-20240430225744794.png)
+!["Hello World"](https://b1ngsha-blog.oss-cn-beijing.aliyuncs.com/image-20240430225744794.png)
 
 
 
@@ -212,7 +212,7 @@ When I run this project, I found the sender sent messages continuously and space
 
 When I set the profile `hello-world, sender`, the bean: `RabbitAmqpTutorialsRunner` will be created. And the method `run` begin. In the `run` method, it let the main thread sleep `duration` ms, then the `@Scheduled` annotation on the `send` method will start a new `scheduled` thread and send messages continuously and spaced.
 
-![image-20240430231415928](https://b1ngsha-blog.oss-cn-beijing.aliyuncs.com/image-20240430231415928.png)
+![The scheduled thread](https://b1ngsha-blog.oss-cn-beijing.aliyuncs.com/image-20240430231415928.png)
 
 ----
 

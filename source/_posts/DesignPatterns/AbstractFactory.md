@@ -3,7 +3,7 @@ title: AbstractFactory
 date: 2024-05-02 23:14:24
 tags: 
 - Design Patterns
-- Factory
+- Creational Patterns
 categories: Design Patterns
 ---
 

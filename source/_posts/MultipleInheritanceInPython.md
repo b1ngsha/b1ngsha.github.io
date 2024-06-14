@@ -86,7 +86,7 @@ Python constructs the order in which it will look for a method in the hierarchy 
 
 It is possible to see MRO of a class using `mro()` method of the class.
 
-![image-20240614151904536](https://b1ngsha-blog.oss-cn-beijing.aliyuncs.com/image-20240614151904536.png)
+![](https://b1ngsha-blog.oss-cn-beijing.aliyuncs.com/image-20240614151904536.png)
 
 ```python
 class A:
@@ -122,7 +122,7 @@ From MRO of class C, we get to know that Python looks for a method first in clas
 
 Now, lets change the hierarchy. We create B and C from A and then D from B and C. Method `process()` is present in both A and C. 
 
-![image-20240614152053262](https://b1ngsha-blog.oss-cn-beijing.aliyuncs.com/image-20240614152053262.png)
+![](https://b1ngsha-blog.oss-cn-beijing.aliyuncs.com/image-20240614152053262.png)
 
 ```python
 class A:
@@ -186,7 +186,7 @@ The output of the above program proves that.
 
 There are cases when Python cannot construct MRO owing to complexity of hierarchy. In such cases it will throw an error as demonstrated by the following code.
 
-![image-20240614153606597](https://b1ngsha-blog.oss-cn-beijing.aliyuncs.com/image-20240614153606597.png)
+![](https://b1ngsha-blog.oss-cn-beijing.aliyuncs.com/image-20240614153606597.png)
 
 ```python
 class A:

@@ -4,7 +4,7 @@ date: 2024-08-28 00:02:27
 category: Missing Semester
 tags: 
 - Missing Semester
-- Bash
+- Vim
 - Linux
 ---
 

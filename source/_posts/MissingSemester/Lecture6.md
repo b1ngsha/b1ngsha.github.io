@@ -37,6 +37,8 @@ o <-- o <-- o <-- o <---- o
 
 Commits in Git are immutable. This doesn’t mean that mistakes can’t be corrected, however; it’s just that “edits” to the commit history are actually creating entirely new commits, and references (see below) are updated to point to the new ones.
 
+---
+
 ## Data model, as pseudocode
 
 It may be instructive to see Git’s data model written down in pseudocode:
@@ -58,6 +60,8 @@ type commit = struct {
 ```
 
 It’s a clean, simple model of history.
+
+---
 
 ## Objects and content-addressing
 
@@ -95,6 +99,8 @@ The tree itself contains pointers to its contents, `baz.txt` (a blob) and `fo
 git is wonderful
 ```
 
+---
+
 ## References
 
 Now, all snapshots can be identified by their SHA-1 hashes. That’s inconvenient, because humans aren’t good at remembering strings of 40 hexadecimal characters.
@@ -121,6 +127,8 @@ With this, Git can use human-readable names like “master” to refer to a part
 
 One detail is that we often want a notion of “where we currently are” in the history, so that when we take a new snapshot, we know what it is relative to (how we set the `parents` field of the commit). In Git, that “where we currently are” is a special reference called “HEAD”.
 
+---
+
 ## Repositories
 
 Finally, we can define what (roughly) is a Git _repository_: it is the data `objects` and `references`.
@@ -129,6 +137,8 @@ On disk, all Git stores are objects and references: that’s all there is to Git
 
 Whenever you’re typing in any command, think about what manipulation the command is making to the underlying graph data structure. Conversely, if you’re trying to make a particular kind of change to the commit DAG, e.g. “discard uncommitted changes and make the ‘master’ ref point to commit `5d83f9e`”, there’s probably a command to do it (e.g. in this case, `git checkout master; git reset --hard 5d83f9e`).
 
+---
+
 ## Staging area
 
 This is another concept that’s orthogonal to the data model, but it’s a part of the interface to create commits.
@@ -136,6 +146,8 @@ This is another concept that’s orthogonal to the data model, but it’s a part
 One way you might imagine implementing snapshotting as described above is to have a “create snapshot” command that creates a new snapshot based on the _current state_ of the working directory. Some version control tools work like this, but not Git. We want clean snapshots, and it might not always be ideal to make a snapshot from the current state. For example, imagine a scenario where you’ve implemented two separate features, and you want to create two separate commits, where the first introduces the first feature, and the next introduces the second feature. Or imagine a scenario where you have debugging print statements added all over your code, along with a bugfix; you want to commit the bugfix while discarding all the print statements.
 
 Git accommodates such scenarios by allowing you to specify which modifications should be included in the next snapshot through a mechanism called the “staging area”.
+
+---
 
 ## Exercises
 

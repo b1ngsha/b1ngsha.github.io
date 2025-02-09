@@ -1,8 +1,8 @@
 ---
 title: 走进golang
 date: 2024-11-17 15:59:18
-tags: golang
-category: golang
+tags: Golang
+category: Golang
 ---
 
 Golang基础学习笔记，部分来自[刘丹冰老师课程](https://www.bilibili.com/video/BV1gf4y1r79E/?p=52&spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=d3889d018fe0deefd57035d350db0a6c)中学习到的内容

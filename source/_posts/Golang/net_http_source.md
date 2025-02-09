@@ -5,7 +5,7 @@ tags: Golang
 category: Golang
 ---
 
-> go version go1.23.3 darwin/arm64
+本文基于 go version go1.23.3 darwin/arm64 来对Golang中的 HTTP 标准库实现原理进行深入解读。
 <!-- more -->
 ## 整体框架
 在 Golang 当中，启动一个 http 服务非常方便：

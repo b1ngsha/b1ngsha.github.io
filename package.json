@@ -25,7 +25,7 @@
     "hexo-server": "^3.0.0",
     "hexo-theme-icarus": "^6.0.0",
     "hexo-theme-landscape": "^1.0.0",
-    "hexo-util": "^3.2.0",
+    "hexo-util": "^3.3.0",
     "hexo-wordcount": "^6.0.1",
     "semver": "^7.5.4"
   }

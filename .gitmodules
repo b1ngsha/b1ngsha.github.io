@@ -1,0 +1,4 @@
+[submodule "typography"]
+    path = themes/typography
+    branch = master
+    url = https://github.com/b1ngsha/hexo-theme-typography.git

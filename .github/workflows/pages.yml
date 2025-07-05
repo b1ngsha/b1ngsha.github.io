@@ -26,7 +26,7 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
-        run: npm install
+        run: npm uninstall --save hexo-generator-category && npm install --save hexo-renderer-pug hexo-generator-archive hexo-generator-category-enhance hexo-generator-feed hexo-generator-tag && npm install --save hexo-prism-plugin && npm install
       - name: Build
         run: npm run build
       - name: Upload Pages artifact

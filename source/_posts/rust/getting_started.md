@@ -1,5 +1,5 @@
 ---
-title: Rust学习笔记（1）: Getting Started
+title: The Rust Programming Language：Getting Started
 date: 2025-05-01 17:52:00
 tags: Rust
 categories: Rust

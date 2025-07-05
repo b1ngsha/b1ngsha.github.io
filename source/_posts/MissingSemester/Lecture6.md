@@ -1,5 +1,6 @@
 ---
 title: Missing Semester Lecture 6 - Version Control (Git)
+date: 2024-09-10 15:53:25
 category: Missing Semester
 tags: 
 - Missing Semester

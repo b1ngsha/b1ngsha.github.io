@@ -15,8 +15,8 @@ plugin:
 
 plugins:
   gitalk:
-    clientID: Ov23li0em9a3CE2qkFXg
-    clientSecret: 227cb1ad92683c819e9c14d9fc26f0b30bdaf070
+    clientID: Ov23lip2Ar4vo3WyCw0f
+    clientSecret: 73e0c97a1ec31d2a4dbc3196ac61fbbb318f927f
     repo: b1ngsha.github.io
     owner: b1ngsha
     admin: 

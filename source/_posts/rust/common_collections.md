@@ -35,8 +35,8 @@ println!("The third element is {third}");
 
 let third: Option<&i32> = v.get(2);
 match third {
-	Some(third) => println!("The third element is {third}"),
-	None => println!("There is no third element."),
+    Some(third) => println!("The third element is {third}"),
+    None => println!("There is no third element."),
 }
 ```
 
@@ -72,36 +72,36 @@ error: could not compile `collections` (bin "collections") due to 1 previous err
 ```rust
 let v = vec![100, 32, 57];
 for i in &v {
-	println!("{i}");
+    println!("{i}");
 }
 
 let mut v = vec![100, 32, 57];
 for i in &mut v {
-	*i += 50;
+    *i += 50;
 }
 ```
 
 ## Using an Enum to Store Multiple Types
 ```rust
 enum SpreadsheetCell {
-	Int(i32),
-	Float(f64),
-	Text(String),
+    Int(i32),
+    Float(f64),
+    Text(String),
 }
 
 let row = vec![
-	SpreadsheetCell::Int(3),
-	SpreadsheetCell::Text(String::from("blue")),
-	SpreadsheetCell::Float(10.12),
+    SpreadsheetCell::Int(3),
+    SpreadsheetCell::Text(String::from("blue")),
+    SpreadsheetCell::Float(10.12),
 ]
 ```
 
 ## Dropping a Vector Drops Its Elements
 ```rust
 {
-	let v = vec![1, 2, 3, 4];
-	
-	// do stuff with v
+    let v = vec![1, 2, 3, 4];
+    
+    // do stuff with v
 } // <- v goes out of scope and is freed here
 ```
 
@@ -311,7 +311,7 @@ scores.insert(String::from("Blue"), 10);
 scores.insert(String::from("Yellow"), 50);
 
 for (key, value) in &scores {
-	println!("{key}: {value}");
+    println!("{key}: {value}");
 }
 ```
 
@@ -365,8 +365,8 @@ let text = "hello world wonderful world";
 let mut map = HashMap::new();
 
 for word in text.split_whitespace() {
-	let count = map.entry(word).or_insert(0);
-	*count += 1;
+    let count = map.entry(word).or_insert(0);
+    *count += 1;
 }
 
 println!("{map:?}")

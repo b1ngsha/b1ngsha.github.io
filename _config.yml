@@ -1,6 +1,7 @@
 theme: typography
 
 title: Cheyne's Blog
+url: https://b1ngsha.github.io
 
 highlight:
   enable: false # we will use the prism plugin instead

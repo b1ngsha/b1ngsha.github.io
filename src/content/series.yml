@@ -1,0 +1,25 @@
+# 系列登记表。新增系列：在这里加一条，再在文章头信息里写 series: <id>
+- id: kubernetes
+  name: Kubernetes
+  description: 极客时间《深入剖析 Kubernetes》课程学习笔记
+- id: modern-cpp
+  name: 现代 C++
+  description: 《现代 C++ 32 讲》学习笔记
+- id: rust
+  name: Rust
+  description: 《The Rust Programming Language》学习笔记
+- id: missing-semester
+  name: Missing Semester
+  description: MIT Missing Semester 课程学习笔记
+- id: design-patterns
+  name: 设计模式
+  description: 设计模式学习笔记
+- id: go
+  name: Go
+  description: Go 语言入门和标准库源码精读
+- id: makefile
+  name: makefile
+  description: 《跟我一起写 Makefile》学习笔记
+- id: refactoring
+  name: 重构
+  description: 《重构》学习笔记

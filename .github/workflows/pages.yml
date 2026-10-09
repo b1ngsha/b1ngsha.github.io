@@ -2,38 +2,36 @@ name: Pages
 
 on:
   push:
-    branches:
-      - master # default branch
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # If your repository depends on submodule, please see: https://github.com/actions/checkout
-          submodules: true
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v4
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # 类型检查 + 文章头信息校验（写错系列、标签、序号会在这里报错）
+      - run: npm run check
+      - run: npm run build
+      # 死链检查、老网址跳转、订阅和搜索索引
+      - run: node scripts/verify-dist.mjs
+      - uses: actions/upload-pages-artifact@v3
         with:
-          node-version: '18.20.8'
-      - name: Cache NPM dependencies
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-npm-cache
-          restore-keys: |
-            ${{ runner.OS }}-npm-cache
-      - name: Install Dependencies
-        run: npm uninstall --save hexo-generator-category && npm install --save hexo-renderer-pug hexo-generator-archive hexo-generator-category-enhance hexo-generator-feed hexo-generator-tag && npm install --save hexo-prism-plugin && npm install
-      - name: Build
-        run: npm run build
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public
+          path: dist
+
   deploy:
+    # 只有合并到 master 才会上线；拉取请求只做上面的检查
+    if: github.event_name != 'pull_request'
     needs: build
     permissions:
       pages: write
@@ -43,6 +41,5 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4

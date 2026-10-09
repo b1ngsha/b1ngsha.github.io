@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/home.css';
+import '../../styles/post.css';
+import { allTags, getPosts } from '../../lib/posts';
+import { tagLabel } from '../../lib/format';
+
+const tags = allTags(await getPosts());
+---
+<Base title="标签" description="跨系列检索文章的关键词。" current="posts">
+  <div class="list">
+    <div class="wrap">
+      <h1 class="page-title">标签 <span class="latin">Tags</span></h1>
+      <p class="chips">
+        {tags.map((t) => <a href={`/tags/${t.tag}/`}>#{tagLabel(t.tag)} · {t.count}</a>)}
+      </p>
+    </div>
+  </div>
+</Base>

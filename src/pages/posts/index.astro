@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostRow from '../../components/PostRow.astro';
+import '../../styles/home.css';
+import '../../styles/post.css';
+import { allTags, getPosts, getSeries } from '../../lib/posts';
+import { tagLabel } from '../../lib/format';
+
+const posts = await getPosts();
+const series = (await getSeries()).filter((s) => posts.some((p) => p.data.series?.id === s.id));
+const name = new Map(series.map((s) => [s.id, s.data.name]));
+const tags = allTags(posts);
+const byYear = new Map<string, typeof posts>();
+posts.forEach((p) => {
+  const y = new Intl.DateTimeFormat('en', { timeZone: 'Asia/Shanghai', year: 'numeric' }).format(p.data.date);
+  byYear.set(y, [...(byYear.get(y) ?? []), p]);
+});
+---
+<Base title="文章" description={`${posts.length} 篇笔记，按年份排列，可以按系列和标签筛选。`} current="posts">
+  <div class="list">
+    <div class="wrap">
+      <h1 class="page-title">文章 <span class="latin">{posts.length} notes</span></h1>
+      <p class="chips" aria-label="系列">
+        {series.map((s) => <a href={`/series/${s.id}/`}>{s.data.name}</a>)}
+      </p>
+      <p class="chips" aria-label="标签">
+        {tags.map((t) => <a href={`/tags/${t.tag}/`}>#{tagLabel(t.tag)}</a>)}
+      </p>
+      {[...byYear].map(([year, list]) => (
+        <div class="group">
+          <h2>{year} <small>{list.length}</small></h2>
+          <ol class="idx">
+            {list.map((p) => <PostRow post={p} seriesName={p.data.series ? name.get(p.data.series.id) : ''} />)}
+          </ol>
+        </div>
+      ))}
+    </div>
+  </div>
+</Base>

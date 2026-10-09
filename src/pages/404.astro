@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/home.css';
+import '../styles/post.css';
+---
+<Base title="找不到这一页" noindex footer={false}>
+  <div class="lost">
+    <div>
+      <svg class="eye" id="eye" viewBox="0 0 900 540" role="img" aria-label="一只闭着的眼睛；点一下会睁开一瞬"></svg>
+      <h1>404</h1>
+      <p>这一页不在了。<a href="/">回到首页</a>，或者<a href="/search/">搜一搜</a>。</p>
+    </div>
+  </div>
+  <script>
+    import { mountEye } from '../scripts/eye';
+    const eye = document.getElementById('eye') as unknown as SVGSVGElement | null;
+    if (eye) mountEye(eye, { closed: true, note: '睡着了。' });
+  </script>
+</Base>

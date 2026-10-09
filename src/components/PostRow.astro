@@ -1,0 +1,17 @@
+---
+import { formatDate } from '../lib/format';
+import { scribble } from '../art/sketches';
+import type { Post } from '../lib/posts';
+
+interface Props { post: Post; seriesName?: string; part?: boolean }
+const { post, seriesName, part = false } = Astro.props;
+const width = Math.max(120, post.data.title.length * 17);
+---
+<li>
+  {part && post.data.part ? <span class="part">{String(post.data.part).padStart(2, '0')}</span> : <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>}
+  <a class="t" href={`/posts/${post.id}/`}>
+    <span>{post.data.title}</span>
+    <Fragment set:html={scribble(width, post.id.length)} />
+  </a>
+  <span class="cat">{part ? formatDate(post.data.date) : seriesName ?? ''}</span>
+</li>

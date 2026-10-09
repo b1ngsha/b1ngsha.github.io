@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostRow from '../../components/PostRow.astro';
+import '../../styles/home.css';
+import '../../styles/post.css';
+import { getPosts, getSeries, inSeries } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const series = await getSeries();
+  return series
+    .filter((s) => posts.some((p) => p.data.series?.id === s.id))
+    .map((s) => ({ params: { id: s.id }, props: { series: s } }));
+}
+const { series } = Astro.props;
+const list = inSeries(await getPosts(), series.id);
+---
+<Base title={series.data.name} description={series.data.description ?? `${series.data.name} 系列，共 ${list.length} 篇。`} current="posts">
+  <div class="list">
+    <div class="wrap">
+      <h1 class="page-title">{series.data.name} <span class="latin">{list.length} notes</span></h1>
+      {series.data.description && <p class="lead">{series.data.description}</p>}
+      <ol class="idx">
+        {list.map((p) => <PostRow post={p} part />)}
+      </ol>
+      <p class="chips"><a href="/series/">所有系列</a><a href="/posts/">全部文章</a></p>
+    </div>
+  </div>
+</Base>

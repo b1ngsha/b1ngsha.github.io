@@ -1,0 +1,44 @@
+---
+import { site } from '../data/site';
+const g = site.giscus;
+const ready = Boolean(g.repoId && g.categoryId);
+---
+{ready && (
+  <section class="comments" id="comments" aria-label="评论" data-repo={g.repo} data-repo-id={g.repoId} data-category={g.category} data-category-id={g.categoryId}>
+    <div class="giscus"></div>
+  </section>
+)}
+<script>
+  const host = document.getElementById('comments');
+  if (host) {
+    const theme = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+    const load = () => {
+      const s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      const d = host.dataset;
+      s.setAttribute('data-repo', d.repo ?? '');
+      s.setAttribute('data-repo-id', d.repoId ?? '');
+      s.setAttribute('data-category', d.category ?? '');
+      s.setAttribute('data-category-id', d.categoryId ?? '');
+      s.setAttribute('data-mapping', 'pathname');
+      s.setAttribute('data-strict', '1');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'top');
+      s.setAttribute('data-theme', theme());
+      s.setAttribute('data-lang', 'zh-CN');
+      host.appendChild(s);
+    };
+    // 滚到评论附近再加载，不拖慢正文
+    new IntersectionObserver((es, io) => {
+      if (es[0].isIntersecting) { io.disconnect(); load(); }
+    }, { rootMargin: '600px' }).observe(host);
+    // 明暗切换时同步给评论框
+    new MutationObserver(() => {
+      const f = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+      f?.contentWindow?.postMessage({ giscus: { setConfig: { theme: theme() } } }, 'https://giscus.app');
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+</script>

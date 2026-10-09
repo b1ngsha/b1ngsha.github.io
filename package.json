@@ -1,35 +1,32 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
+  "name": "about-cheyne",
+  "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "build": "hexo generate",
-    "clean": "hexo clean",
-    "deploy": "hexo deploy",
-    "server": "hexo server"
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
   },
-  "hexo": {
-    "version": "7.1.1"
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist --glob \"posts/*/index.html\" --output-subdir pagefind",
+    "preview": "astro preview",
+    "check": "astro check",
+    "new": "node scripts/new.mjs",
+    "verify": "npm run check && npm run build && node scripts/verify-dist.mjs"
   },
   "dependencies": {
-    "hexo": "^7.0.0",
-    "hexo-generator-archive": "^2.0.0",
-    "hexo-generator-category-enhance": "^0.1.6",
-    "hexo-generator-feed": "^3.0.0",
-    "hexo-generator-index": "^3.0.0",
-    "hexo-generator-tag": "^2.0.0",
-    "hexo-plugin-gitalk": "^0.2.0",
-    "hexo-prism-plugin": "^2.3.0",
-    "hexo-renderer-ejs": "^2.0.0",
-    "hexo-renderer-inferno": "^1.0.2",
-    "hexo-renderer-marked": "^6.0.0",
-    "hexo-renderer-pug": "^3.0.0",
-    "hexo-renderer-stylus": "^3.0.1",
-    "hexo-server": "^3.0.0",
-    "hexo-theme-icarus": "^6.0.0",
-    "hexo-theme-landscape": "^1.0.0",
-    "hexo-util": "^3.2.0",
-    "hexo-wordcount": "^6.0.1",
-    "semver": "^7.5.4"
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/bodoni-moda": "^5.2.0",
+    "@fontsource-variable/noto-serif-sc": "^5.2.0",
+    "astro": "^7.3.8",
+    "lxgw-wenkai-webfont": "^1.7.0",
+    "sharp": "^0.35.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@astrojs/markdown-satteri": "^0.4.3",
+    "pagefind": "^1.5.2",
+    "satteri": "^0.10.5",
+    "typescript": "^5.9.0"
   }
 }

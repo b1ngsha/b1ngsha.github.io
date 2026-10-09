@@ -1,6 +1,7 @@
 ---
 import '@fontsource-variable/noto-serif-sc';
 import '@fontsource-variable/bodoni-moda/wght-italic.css';
+import 'lxgw-wenkai-webfont/lxgwwenkai-light.css';
 import 'lxgw-wenkai-webfont/lxgwwenkai-regular.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
@@ -13,7 +14,6 @@ interface Props {
   description?: string;
   type?: 'website' | 'article';
   noindex?: boolean;
-  /** 首页自带尾声，不再显示页脚 */
   footer?: boolean;
   isHome?: boolean;
   current?: 'now' | 'years' | 'posts' | 'search';
@@ -43,7 +43,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:card" content="summary" />
     {noindex && <meta name="robots" content="noindex" />}
     <script is:inline>
-      // 首次绘制前就定好明暗和 .js，避免闪一下
       (function () {
         var r = document.documentElement;
         r.classList.add('js');
@@ -56,7 +55,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <a class="skip" href="#main">跳到正文</a>
-    <!-- 线抖的滤镜：a 给首屏的眼睛，b 给其余线稿 -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
       <filter id="boil-a-f" x="-3%" y="-3%" width="106%" height="106%">
         <feTurbulence id="boil-a" type="fractalNoise" baseFrequency=".018 .022" numOctaves="2" seed="3" />

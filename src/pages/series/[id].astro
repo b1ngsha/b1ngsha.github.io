@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PostRow from '../../components/PostRow.astro';
-import '../../styles/home.css';
 import '../../styles/post.css';
 import { getPosts, getSeries, inSeries } from '../../lib/posts';
 
@@ -18,7 +17,7 @@ const list = inSeries(await getPosts(), series.id);
 <Base title={series.data.name} description={series.data.description ?? `${series.data.name} 系列，共 ${list.length} 篇。`} current="posts">
   <div class="list">
     <div class="wrap">
-      <h1 class="page-title">{series.data.name} <span class="latin">{list.length} notes</span></h1>
+      <h1 class="page-title">{series.data.name} <small>{list.length} 篇</small></h1>
       {series.data.description && <p class="lead">{series.data.description}</p>}
       <ol class="idx">
         {list.map((p) => <PostRow post={p} part />)}

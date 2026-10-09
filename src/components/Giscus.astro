@@ -31,11 +31,9 @@ const ready = Boolean(g.repoId && g.categoryId);
       s.setAttribute('data-lang', 'zh-CN');
       host.appendChild(s);
     };
-    // 滚到评论附近再加载，不拖慢正文
     new IntersectionObserver((es, io) => {
       if (es[0].isIntersecting) { io.disconnect(); load(); }
     }, { rootMargin: '600px' }).observe(host);
-    // 明暗切换时同步给评论框
     new MutationObserver(() => {
       const f = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
       f?.contentWindow?.postMessage({ giscus: { setConfig: { theme: theme() } } }, 'https://giscus.app');

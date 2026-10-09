@@ -1,6 +1,5 @@
-import { bez, f1, pen, poly, seeded, type Pt } from './draw';
+import { f1, pen, seeded, type Pt } from './draw';
 
-/* ─────────────── 蛋挞：正面坐着的猫，右侧一片排线 ─────────────── */
 export function catSketch(): string {
   const o: string[] = [];
   const hr = seeded(5);
@@ -8,7 +7,6 @@ export function catSketch(): string {
   const head = 'M128 200 C126 150 160 118 200 118 C240 118 274 150 272 200 C270 238 238 258 200 258 C162 258 130 238 128 200 Z';
   o.push(`<defs><clipPath id="cat-body"><path d="${body} ${head}"/></clipPath>`);
   o.push('<clipPath id="cat-right"><path d="M258 112 L300 112 L300 470 L226 470 C246 400 262 330 262 262 C262 214 262 160 258 112 Z"/></clipPath></defs>');
-  // 排线：先画，墨线再盖上去
   o.push('<g clip-path="url(#cat-right)"><g clip-path="url(#cat-body)">');
   for (let t = -300, j = 0; t < 420; t += 5.2, j++) {
     const a = (62 * Math.PI) / 180;
@@ -33,7 +31,6 @@ export function catSketch(): string {
   return `<svg class="art" data-boil viewBox="60 40 280 450" role="img" aria-label="蛋挞的线稿">${o.join('')}</svg>`;
 }
 
-/* ─────────────── 富士山：右坡排线，红色的太阳 ─────────────── */
 const FUJI = 'M20 330 C70 328 120 305 150 262 C168 236 178 196 188 153 C192 146 210 146 214 153 C224 196 236 236 254 262 C284 306 330 328 380 330';
 export function fujiSketch(): string {
   const o: string[] = [];
@@ -54,7 +51,6 @@ export function fujiSketch(): string {
   return `<svg class="art" data-boil viewBox="0 120 400 250" aria-hidden="true">${o.join('')}</svg>`;
 }
 
-/* ─────────────── 彼岸花：年谱尽头的红色，横着开 ─────────────── */
 export function lilySketch(): string {
   const o: string[] = [];
   const C: Pt = [210, 170];
@@ -87,7 +83,6 @@ export function lilySketch(): string {
   return `<svg class="lily" id="lily" data-boil viewBox="0 0 420 420" aria-hidden="true">${o.join('')}</svg>`;
 }
 
-/* ─────────────── 「正」字计数：每五个一组，四竖一撇 ─────────────── */
 export function tallySketch(count: number, seed: number): string {
   const groups = Math.ceil(count / 5);
   const w = Math.max(60, groups * 38);
@@ -103,12 +98,10 @@ export function tallySketch(count: number, seed: number): string {
   return `<svg viewBox="0 0 ${w} 26" preserveAspectRatio="xMinYMid meet" aria-hidden="true">${o.join('')}</svg>`;
 }
 
-/* ─────────────── 手画的小方框（待办前面那个） ─────────────── */
 export function todoBox(i: number): string {
   return `<svg viewBox="0 0 24 24" aria-hidden="true">${pen('M4 5 L20 4 L21 20 L5 21 Z', '', i * 0.2, 0.7)}${pen('M3 6 L19 3.5', 't', i * 0.2 + 0.2, 0.4)}</svg>`;
 }
 
-/* ─────────────── 文章标题下面划过去的红笔 ─────────────── */
 export function scribble(width: number, seed: number): string {
   const sr = seeded(seed + 3);
   let x = 2;
@@ -119,4 +112,3 @@ export function scribble(width: number, seed: number): string {
   }
   return `<svg class="scr" viewBox="0 0 ${width} 12" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" pathLength="1"/></svg>`;
 }
-export { bez, poly };

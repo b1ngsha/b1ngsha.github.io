@@ -1,4 +1,3 @@
-/** 线稿用到的小工具。所有随机都用固定种子，每次构建画出来的东西一模一样。 */
 export const seeded = (n: number) => {
   let s = n;
   return () => (s = (s * 16807) % 2147483647) / 2147483647;
@@ -18,6 +17,5 @@ export const bez = (a: Pt, b: Pt, c: Pt, d: Pt, n: number): Pt[] => {
   return o;
 };
 
-/** 一笔：pathLength=1，--dl 是什么时候落笔，--dur 是画多久 */
 export const pen = (d: string, cls = '', dl = 0, dur?: number) =>
   `<path class="ln ${cls}" pathLength="1" d="${d}" style="--dl:${f1(dl * 100) / 100}s${dur ? `;--dur:${dur}s` : ''}"/>`;

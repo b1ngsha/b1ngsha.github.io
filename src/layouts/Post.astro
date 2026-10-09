@@ -1,7 +1,6 @@
 ---
 import Base from './Base.astro';
 import Giscus from '../components/Giscus.astro';
-import '../styles/home.css';
 import '../styles/post.css';
 import { formatDate, isoDate, tagLabel } from '../lib/format';
 import type { Post, Series } from '../lib/posts';
@@ -21,7 +20,7 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 <Base title={post.data.title} description={description} type="article" current="posts">
   <div class="progress" id="progress" aria-hidden="true"></div>
   <article class="read">
-    <div class="read-grid">
+    <div class={toc.length > 1 ? 'read-grid' : 'read-grid no-toc'}>
       <div>
         <header class="read-head">
           <p class="crumb">
@@ -50,7 +49,6 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
       </div>
       {toc.length > 1 && (
         <aside class="toc" aria-label="目录">
-          <h2>Contents</h2>
           <ol>
             {toc.map((h) => <li class={`h${h.depth}`}><a href={`#${h.slug}`} data-slug={h.slug}>{h.text}</a></li>)}
           </ol>

@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import '../../styles/home.css';
 import '../../styles/post.css';
 import { formatDate } from '../../lib/format';
 
@@ -11,7 +10,7 @@ const rendered = await Promise.all(entries.map(async (e) => ({ e, Content: (awai
 <Base title="近况" description="我最近在做什么、想什么。" current="now">
   <div class="list">
     <div class="wrap">
-      <h1 class="page-title">近况 <span class="latin">Now</span></h1>
+      <h1 class="page-title">近况</h1>
       {rendered.map(({ e, Content }) => (
         <section class="now-entry">
           <time datetime={e.data.date.toISOString()}>{formatDate(e.data.date)}</time>
@@ -19,7 +18,7 @@ const rendered = await Promise.all(entries.map(async (e) => ({ e, Content: (awai
           <div class="body"><Content /></div>
           {e.data.plans.length > 0 && (
             <>
-              {e.data.plansTitle && <p class="todo-title latin">{e.data.plansTitle}</p>}
+              {e.data.plansTitle && <p class="todo-title">{e.data.plansTitle}</p>}
               <ul>{e.data.plans.map((p) => <li>{p}</li>)}</ul>
             </>
           )}

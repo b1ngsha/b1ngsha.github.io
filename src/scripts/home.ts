@@ -1,5 +1,4 @@
-/** 首页的交互：滚到就画、手画边框、年谱的荆棘线随滚动生长。 */
-import { bez, f1, poly, seeded, type Pt } from '../art/draw';
+import { f1, poly, seeded, type Pt } from '../art/draw';
 import { mountEye } from './eye';
 
 const NS = 'http://www.w3.org/2000/svg';
@@ -19,17 +18,14 @@ function pen(parent: Element, d: string, cls = '', dl = 0, dur?: number) {
   return p;
 }
 
-/* 眼睛 */
 const eye = document.getElementById('eye') as SVGSVGElement | null;
 if (eye) mountEye(eye);
 
-/* 滚到就画 */
 const io = new IntersectionObserver((es) => es.forEach((e) => {
   if (e.isIntersecting) { e.target.classList.add('go'); io.unobserve(e.target); }
 }), { threshold: 0.25 });
 document.querySelectorAll('.sketch, #todo, #quote, #tally, .coda svg.art').forEach((n) => io.observe(n));
 
-/* 手画边框：每个 [data-rough] 的四条边，各画两遍，略带抖动 */
 function rough(host: HTMLElement) {
   const w = host.offsetWidth, h = host.offsetHeight, r = seeded(w + h);
   const s = svgEl('svg', { class: 'rough', 'data-boil': '', width: w + 24, height: h + 24, viewBox: `-12 -12 ${w + 24} ${h + 24}`, 'aria-hidden': 'true' });
@@ -47,7 +43,6 @@ function rough(host: HTMLElement) {
 }
 document.querySelectorAll<HTMLElement>('[data-rough]').forEach((h) => { h.style.position = 'relative'; requestAnimationFrame(() => rough(h)); });
 
-/* 年谱：荆棘线随滚动生长；尽头开出彼岸花 */
 const wrap = document.getElementById('entwrap');
 const vine = document.getElementById('vine') as SVGSVGElement | null;
 const lily = document.getElementById('lily');
@@ -55,7 +50,7 @@ let main: SVGPathElement | null = null;
 let thorns: SVGPathElement[] = [];
 let nodes: SVGGElement[] = [];
 let vineH = 0;
-let reached = 0; // 往回滚时线不会缩回去，和彼岸花保持一致
+let reached = 0;
 
 function still(p: SVGPathElement) { p.style.animation = 'none'; p.style.strokeDasharray = 'none'; p.style.strokeDashoffset = '0'; }
 function buildVine() {
@@ -64,7 +59,7 @@ function buildVine() {
   const pad = parseFloat(getComputedStyle(wrap).paddingBottom) || 0;
   const H = wrap.offsetHeight - pad, vr = seeded(21);
   vineH = H;
-  const W = vine.clientWidth || 110; // 手机上这一列只有 70px，按实际宽度画，线才不会被缩短
+  const W = vine.clientWidth || 110;
   vine.setAttribute('viewBox', `0 0 ${W} ${H}`); vine.setAttribute('width', String(W)); vine.setAttribute('height', String(H));
   const pts: Pt[] = [];
   for (let y = 0; y <= H; y += 14) pts.push([Math.min(46, W / 2 - 10) + Math.sin(y * 0.021) * 10 + Math.sin(y * 0.07) * 3 + (vr() - 0.5) * 1.4, y]);
@@ -89,7 +84,6 @@ function updateVine() {
   const r = wrap.getBoundingClientRect(), vh = innerHeight;
   const p = reduce ? 1 : (reached = Math.max(reached, clamp((vh * 0.72 - r.top) / (vineH || 1), 0, 1)));
   main.style.strokeDashoffset = String(1 - p);
-  // 快到尽头时一次画完，保证最后一个节点（红色的 2026）和彼岸花同时出现
   const reach = p > 0.93 ? Infinity : p * vineH;
   if (p > 0.93) main.style.strokeDashoffset = '0';
   thorns.forEach((t) => (t.style.opacity = Number(t.dataset.y) < reach ? '1' : '0'));
@@ -98,7 +92,6 @@ function updateVine() {
 }
 buildVine(); updateVine();
 addEventListener('scroll', () => requestAnimationFrame(updateVine), { passive: true });
-// 字体加载完、窗口变化、文字换行变了：年谱的高度一变，线就按新高度重画
 if (wrap) {
   let lastH = wrap.offsetHeight, lastW = wrap.offsetWidth;
   new ResizeObserver(() => {
@@ -109,6 +102,3 @@ if (wrap) {
   }).observe(wrap);
 }
 document.fonts?.ready.then(() => { buildVine(); updateVine(); });
-
-/* 文章标题下的红笔：悬停时划过去 */
-void bez;

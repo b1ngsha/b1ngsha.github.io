@@ -1,4 +1,3 @@
-/** 明暗切换：跟随系统，点一下可以手动换，记在 localStorage 里。 */
 const root = document.documentElement;
 const btn = document.getElementById('theme-toggle');
 const current = () => root.dataset.theme === 'dark';

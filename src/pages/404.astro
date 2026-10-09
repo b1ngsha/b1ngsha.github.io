@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import '../styles/home.css';
 import '../styles/post.css';
 ---
 <Base title="找不到这一页" noindex footer={false}>
@@ -14,6 +13,6 @@ import '../styles/post.css';
   <script>
     import { mountEye } from '../scripts/eye';
     const eye = document.getElementById('eye') as unknown as SVGSVGElement | null;
-    if (eye) mountEye(eye, { closed: true, note: '睡着了。' });
+    if (eye) mountEye(eye, { closed: true });
   </script>
 </Base>

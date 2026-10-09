@@ -1,6 +1,5 @@
 const tz = 'Asia/Shanghai';
 
-/** 2025.12.30 —— 一律按北京时间取日期，避免凌晨发的文章差一天 */
 export function formatDate(d: Date): string {
   const p = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' })
     .formatToParts(d)
@@ -13,7 +12,6 @@ export function isoDate(d: Date): string {
 }
 
 const tagNames: Record<string, string> = { ssh: 'SSH', ci: 'CI', git: 'Git', rabbitmq: 'RabbitMQ' };
-/** 标签在页面上的显示名 */
 export function tagLabel(tag: string): string {
   return tagNames[tag] ?? tag.charAt(0).toUpperCase() + tag.slice(1);
 }

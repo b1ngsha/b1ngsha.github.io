@@ -1,4 +1,3 @@
-/** 站内搜索：构建后由 Pagefind 生成索引，纯静态，查询在浏览器里完成。 */
 interface PagefindResult { url: string; excerpt: string; meta: { title?: string } }
 interface Pagefind {
   search(q: string): Promise<{ results: { data(): Promise<PagefindResult> }[] }>;
@@ -36,7 +35,7 @@ async function run() {
     a.href = h.url;
     a.textContent = h.meta.title ?? h.url;
     const p = document.createElement('p');
-    p.innerHTML = h.excerpt; // Pagefind 只会在摘要里加 <mark>
+    p.innerHTML = h.excerpt;
     li.append(a, p);
     list.append(li);
   }

@@ -1,12 +1,4 @@
 #!/usr/bin/env node
-/**
- * 新建文章或近况。
- *
- *   npm run new -- <slug> "<标题>" [--series <系列id>] [--tags a,b]
- *   npm run new -- now
- *
- * 文章默认是草稿（draft: true），写完把这一行删掉才会发布。
- */
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -20,7 +12,6 @@ const flag = (name) => {
   return v;
 };
 
-/** 北京时间的 ISO 字符串，例如 2025-12-30T22:52:46+08:00 */
 function nowShanghai() {
   const d = new Date(Date.now() + 8 * 3600 * 1000);
   return d.toISOString().replace(/\.\d+Z$/, '+08:00');

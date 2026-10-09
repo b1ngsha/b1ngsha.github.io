@@ -1,12 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
-import '../../styles/home.css';
 import '../../styles/post.css';
 ---
 <Base title="搜索" description="在所有文章里搜索。" current="search">
   <div class="list">
     <div class="wrap">
-      <h1 class="page-title">搜索 <span class="latin">Search</span></h1>
+      <h1 class="page-title">搜索</h1>
       <form class="search-box" role="search" onsubmit="return false">
         <label class="sr-only" for="q">搜索文章</label>
         <input id="q" type="search" placeholder="想找什么？" autocomplete="off" autofocus />

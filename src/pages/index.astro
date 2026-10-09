@@ -8,6 +8,7 @@ import { formatDate } from '../lib/format';
 import { getPosts, getSeries, homePosts } from '../lib/posts';
 import { catSketch, fujiSketch, lilySketch, tallySketch, todoBox } from '../art/sketches';
 import '../styles/home.css';
+import '../styles/post.css';
 
 const posts = await getPosts();
 const seriesAll = await getSeries();
@@ -37,23 +38,20 @@ const [coda1, coda2] = site.coda.split('\n');
       <h1>{site.handle}</h1>
       <span class="latin">{site.latin}</span>
     </div>
-    <div class="intro">
-      <p>{site.intro}</p>
-      <p>这里是我的近况、年谱，和 {posts.length} 篇笔记。</p>
-    </div>
-    <span class="scrollcue hand" aria-hidden="true">往下翻 <svg class="arrow down" viewBox="0 0 16 28"><path d="M8 2 C9 10 7 18 8 26 M2 20 L8 26 L14 20" /></svg></span>
+    <p class="intro">{site.intro}</p>
   </div>
 
-  {now && (
-    <section id="now" aria-labelledby="now-h">
-      <div class="wrap">
-        <h2 id="now-h">近况 <span class="latin">Now · {formatDate(now.data.date).slice(0, 7)}</span></h2>
-        <div class="now">
+  <div class="sheet">
+    {now && (
+      <section id="now" aria-labelledby="now-h">
+        <h2 id="now-h">近况</h2>
+        <div class="now-body">
           <figure class="sketch" data-rough>
             <Fragment set:html={catSketch()} />
-            <figcaption><span>蛋挞，今年养的猫</span><i>据照片描</i></figcaption>
+            <figcaption>蛋挞</figcaption>
           </figure>
           <div class="prose-now">
+            <time class="stamp" datetime={now.data.date.toISOString()}>{formatDate(now.data.date)}</time>
             {now.data.quote && (
               <p class="big" id="quote">
                 {quoteLines.map((line, i) => {
@@ -70,22 +68,20 @@ const [coda1, coda2] = site.coda.split('\n');
             {NowBody && <NowBody />}
             {now.data.plans.length > 0 && (
               <>
+                {now.data.plansTitle && <p class="todo-title">{now.data.plansTitle}</p>}
                 <ul class="todo" id="todo">
                   {now.data.plans.map((p, i) => <li><Fragment set:html={todoBox(i)} /><span>{p}</span></li>)}
                 </ul>
-                {now.data.plansTitle && <p class="todo-title">{now.data.plansTitle}</p>}
               </>
             )}
             {nowAll.length > 1 && <a class="more-link" href="/now/">以前的近况 <svg class="arrow" viewBox="0 0 28 16"><path d="M2 9 C10 7 18 9 26 8 M20 2 L26 8 L20 14" /></svg></a>}
           </div>
         </div>
-      </div>
-    </section>
-  )}
+      </section>
+    )}
 
-  <section id="years" aria-labelledby="years-h">
-    <div class="wrap">
-      <h2 id="years-h">年谱 <span class="latin">Timeline</span></h2>
+    <section id="years" aria-labelledby="years-h">
+      <h2 id="years-h">年谱</h2>
       <div class="ent-wrap" id="entwrap">
         <svg class="vine" id="vine" aria-hidden="true"></svg>
         {timeline.map((t) => (
@@ -96,12 +92,12 @@ const [coda1, coda2] = site.coda.split('\n');
         ))}
         <Fragment set:html={lilySketch()} />
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <section id="posts" aria-labelledby="posts-h">
     <div class="wrap">
-      <h2 id="posts-h">文章 <span class="latin">{posts.length} notes</span></h2>
+      <h2 id="posts-h">文章</h2>
       <div class="posts">
         <ol class="idx">
           {shown.map((p) => <PostRow post={p} seriesName={p.data.series ? seriesName.get(p.data.series.id) : ''} />)}
@@ -125,12 +121,11 @@ const [coda1, coda2] = site.coda.split('\n');
       <div class="sign">
         <p class="big">{coda1}<br />{coda2}</p>
         <ul class="contact">
-          <li><span>GitHub</span><a href={site.links.github}>github.com/b1ngsha</a></li>
+          <li><span>GitHub</span><a href={site.links.github}>b1ngsha</a></li>
           <li><span>X</span><a href={site.links.x}>@B1ngsha</a></li>
           <li><span>Telegram</span><a href={site.links.telegram}>@b1ngsha</a></li>
           <li><span>Email</span><Contact /></li>
         </ul>
-        <small class="hand" style="display:block;margin-top:30px;color:var(--mute);font-size:13px">{site.handle} · Cheyne · {new URL(site.url).host}　／　线稿据作者自摄照片描成</small>
       </div>
     </div>
   </section>

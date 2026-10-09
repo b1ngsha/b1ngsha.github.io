@@ -7,7 +7,6 @@ dist/
 .env
 .env.*
 
-# Impeccable 的过程文件（截图、草稿、日志）不进仓库；config.json、design.json、surfaces/ 要进
 .impeccable/mocks/
 .impeccable/review/
 .impeccable/questions/

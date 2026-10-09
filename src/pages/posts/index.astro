@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PostRow from '../../components/PostRow.astro';
-import '../../styles/home.css';
 import '../../styles/post.css';
 import { allTags, getPosts, getSeries } from '../../lib/posts';
 import { tagLabel } from '../../lib/format';
@@ -19,7 +18,7 @@ posts.forEach((p) => {
 <Base title="文章" description={`${posts.length} 篇笔记，按年份排列，可以按系列和标签筛选。`} current="posts">
   <div class="list">
     <div class="wrap">
-      <h1 class="page-title">文章 <span class="latin">{posts.length} notes</span></h1>
+      <h1 class="page-title">文章 <small>{posts.length} 篇</small></h1>
       <p class="chips" aria-label="系列">
         {series.map((s) => <a href={`/series/${s.id}/`}>{s.data.name}</a>)}
       </p>

@@ -10,11 +10,9 @@ export default defineConfig({
   site: 'https://b1ngsha.site',
   trailingSlash: 'always',
   build: { format: 'directory' },
-  // 老的 Hexo 网址（/年/月/日/文件夹/文件名/）→ 新网址，构建时生成跳转页
   redirects,
   integrations: [
     sitemap({
-      // 老网址的跳转页不进 sitemap
       filter: (page) => !/\/\d{4}\/\d{2}\/\d{2}\//.test(new URL(page).pathname),
     }),
   ],

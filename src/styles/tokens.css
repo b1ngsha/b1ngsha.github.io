@@ -9,6 +9,7 @@
 
   --serif: 'Noto Serif SC Variable', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
   --latin: 'Bodoni Moda Variable', 'Bodoni 72', 'Didot', serif;
+  --display: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', serif;
   --hand: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', serif;
   --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
 
@@ -17,7 +18,6 @@
   color-scheme: light;
 }
 
-/* 暗色：近黑的纸，白色的线，红色保留 */
 :root[data-theme='dark'] {
   --paper: #151514;
   --ink: #ecebe6;

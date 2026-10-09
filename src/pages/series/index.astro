@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import '../../styles/home.css';
 import '../../styles/post.css';
 import { getPosts, getSeries } from '../../lib/posts';
 
@@ -13,7 +12,7 @@ const series = (await getSeries())
 <Base title="系列" description="按主题连续写下来的笔记。" current="posts">
   <div class="list">
     <div class="wrap">
-      <h1 class="page-title">系列 <span class="latin">Series</span></h1>
+      <h1 class="page-title">系列</h1>
       <ol class="idx">
         {series.map(({ s, n }) => (
           <li><span class="part">{String(n).padStart(2, '0')}</span><a class="t" href={`/series/${s.id}/`}><span>{s.data.name}</span></a><span class="cat">{s.data.description}</span></li>

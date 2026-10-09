@@ -16,15 +16,12 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 1.5px soli
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 svg { overflow: visible; }
 img { max-width: 100%; height: auto; }
-.hand { font-family: var(--hand); font-weight: 400; }
 .latin { font-family: var(--latin); font-style: italic; font-weight: 400; }
-.red { color: var(--red); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .skip { position: absolute; left: 12px; top: -60px; z-index: 50; background: var(--ink); color: var(--paper); padding: 8px 14px; font: 400 14px var(--hand); }
 .skip:focus { top: 12px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
-/* —— 线的基本语法：一切都是钢笔线，落笔顺序由 --dl 排 —— */
 .ln { fill: none; stroke: var(--ink); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
 .ln.r { stroke: var(--red); }
 .ln.t { stroke-width: 0.8; }
@@ -33,8 +30,6 @@ img { max-width: 100%; height: auto; }
 .fill { fill: var(--ink); }
 .fillr { fill: var(--red); }
 .arrow { width: 28px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -2px; }
-.arrow.down { width: 16px; height: 28px; vertical-align: -10px; }
-/* 暗色里：瞳孔是一个描了边的暗盘，不是一块刺眼的白 */
 :root[data-theme='dark'] .fill { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; }
 .js .ln { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .js .go .ln, .js .go.ln { animation: pen var(--dur, 1.4s) cubic-bezier(0.55, 0, 0.25, 1) var(--dl, 0s) forwards; }
@@ -43,7 +38,6 @@ img { max-width: 100%; height: auto; }
 .js .go .fill, .js .go .fillr { opacity: 1; }
 .done .ln { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
 
-/* 线抖：动画原画里“沸腾”的那种质感。画完才开，减少动态时不开 */
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
   .done.boil-on .boil { filter: url(#boil-a-f); }
   svg[data-boil].boil-on { filter: url(#boil-b-f); }
@@ -53,7 +47,6 @@ img { max-width: 100%; height: auto; }
   .js .fill, .js .fillr { opacity: 1; transition: none; }
 }
 
-/* —— 顶栏 —— */
 .top {
   position: fixed; left: 0; right: 0; top: 0; z-index: 20;
   display: flex; justify-content: space-between; align-items: baseline;
@@ -75,9 +68,8 @@ img { max-width: 100%; height: auto; }
 #theme-toggle .moon { display: none; }
 :root[data-theme='dark'] #theme-toggle .sun { display: none; }
 :root[data-theme='dark'] #theme-toggle .moon { display: inline; }
-@media (max-width: 640px) { .top nav { gap: 14px; font-size: 14px; } .top nav .nav-long { display: none; } }
+@media (max-width: 640px) { .top nav { gap: 14px; font-size: 14px; } }
 
-/* —— 页脚 —— */
 .foot { padding: 60px var(--gutter) 50px; }
 .foot .row { max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px 28px; justify-content: space-between; border-top: 1px solid var(--faint); padding-top: 22px; font: 400 14px var(--hand); color: var(--mute); }
 .foot .links { display: flex; gap: 20px; flex-wrap: wrap; }

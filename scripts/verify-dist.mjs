@@ -1,10 +1,4 @@
 #!/usr/bin/env node
-/**
- * 构建之后的检查：
- *  1. 站内链接和资源都指向真实存在的文件（死链检查）；
- *  2. 每个老 Hexo 网址都有跳转页，而且跳转目标存在；
- *  3. /atom.xml、sitemap、搜索索引都在。
- */
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 

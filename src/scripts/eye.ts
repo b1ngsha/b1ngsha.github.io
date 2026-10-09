@@ -1,8 +1,3 @@
-/**
- * 首屏的眼睛。
- * 先画草稿线（浅灰的构图线），再依次落墨：眉、眼睑、睫毛、虹膜、瞳孔，最后眼角裂开一道红。
- * 画完以后：瞳孔跟着鼠标走，隔几秒眨一次眼，线条轻微“沸腾”。
- */
 import { bez, f1, poly, seeded, type Pt } from '../art/draw';
 
 const NS = 'http://www.w3.org/2000/svg';
@@ -15,7 +10,6 @@ function el<K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<string, 
   return e;
 }
 
-/** 一笔：pathLength=1，--dl 是什么时候落笔 */
 function pen(parent: Element, d: string, cls = '', dl = 0, dur?: number): SVGPathElement {
   const p = el('path', { d, class: 'ln ' + cls, pathLength: 1 }, parent);
   p.style.setProperty('--dl', dl + 's');
@@ -24,10 +18,7 @@ function pen(parent: Element, d: string, cls = '', dl = 0, dur?: number): SVGPat
 }
 
 export interface EyeOptions {
-  /** 闭着眼睛（404 页用）：点一下才睁开一会儿 */
   closed?: boolean;
-  /** 文字批注 */
-  note?: string;
 }
 
 export function mountEye(svg: SVGSVGElement, opts: EyeOptions = {}): void {
@@ -44,7 +35,6 @@ export function mountEye(svg: SVGSVGElement, opts: EyeOptions = {}): void {
   const gLid = el('g', {}, gBoil);
   const gCrack = el('g', {}, gBoil);
 
-  // ── 几何：上眼睑和下眼睑各 64 个点，开合只是在两条线之间插值
   const N = 64;
   const P0: Pt = [60, 300], P2: Pt = [846, 324];
   const U: Pt[] = [...bez(P0, [170, 170], [400, 92], [570, 124], 32), ...bez([570, 124], [700, 150], [806, 236], P2, 32).slice(1)];
@@ -56,7 +46,6 @@ export function mountEye(svg: SVGSVGElement, opts: EyeOptions = {}): void {
     return [ty / l, -tx / l];
   };
 
-  // ── 草稿线：先出现、像铅笔一样淡，墨线再盖上去
   const cx0 = 470, cy0 = 268;
   pen(gGuide, 'M0 306 H900', 'g', 0.1, 1.6);
   pen(gGuide, 'M40 80 H866 V500 H40 Z', 'g', 0.3, 2);
@@ -69,7 +58,6 @@ export function mountEye(svg: SVGSVGElement, opts: EyeOptions = {}): void {
     pen(gGuide, `M${60 + i * 110} 286 l${f1(Math.cos(a) * 14)} ${f1(Math.sin(a) * 14)}`, 'g', 1.4 + i * 0.05, 0.6);
   }
 
-  // ── 眉：很多短线，沿一条弧排开
   const browC = bez([100, 150], [250, 40], [470, 18], [720, 78], 60);
   for (let i = 2; i < browC.length - 2; i++) {
     const [x, y] = browC[i], t = i / browC.length;
@@ -80,7 +68,6 @@ export function mountEye(svg: SVGSVGElement, opts: EyeOptions = {}): void {
   }
   pen(gBrow, poly(bez([96, 160], [250, 60], [470, 34], [740, 96], 40)), '', 0.5, 1.8);
 
-  // ── 眼睑：主线、回笔线、重睑线、睫毛
   const lidMain = pen(gLid, '', 'b', 1.0, 1.8);
   const lidEcho = pen(gLid, '', 't', 1.3, 1.8);
   const crease = pen(gLid, '', '', 1.5, 1.6);
@@ -116,7 +103,6 @@ export function mountEye(svg: SVGSVGElement, opts: EyeOptions = {}): void {
   }
   shape(1);
 
-  // ── 眼球：上眼睑投下来的排线，还有眼角的细线
   const shade = el('g', {}, gBall);
   for (let i = 4; i < N - 3; i++) {
     const a = U[i], n = nrm(U, i);
@@ -129,7 +115,6 @@ export function mountEye(svg: SVGSVGElement, opts: EyeOptions = {}): void {
     pen(shade, `M${f1(a[0])} ${f1(a[1])} l${f1(8 + R() * 10)} ${f1(-10 - R() * 8)}`, 't', 3.2 + i * 0.03, 0.4);
   }
 
-  // ── 虹膜：整组跟着指针走
   const iris = el('g', {}, gBall);
   const irisInner = el('g', {}, iris);
   const fg = el('linearGradient', { id: 'eye-fade', gradientUnits: 'userSpaceOnUse', x1: 0, y1: -118, x2: 0, y2: 34 }, defs);
@@ -168,7 +153,6 @@ export function mountEye(svg: SVGSVGElement, opts: EyeOptions = {}): void {
   ];
   glints.forEach((g) => { g.style.opacity = reduce ? '1' : '0'; g.style.transition = reduce ? 'none' : 'opacity .6s ease 4.4s'; });
 
-  // ── 裂纹：从眼角出发，红色。页面里最先出现的红
   const rc = seeded(9);
   let cxp = 846, cyp = 324, ang = 1.55;
   const crack: Pt[] = [[cxp, cyp]];
@@ -191,25 +175,14 @@ export function mountEye(svg: SVGSVGElement, opts: EyeOptions = {}): void {
     c.style.setProperty('--dl', 5.4 + rc() * 0.8 + 's');
   }
 
-  // ── 手写批注
-  const note = el('text', { x: 430, y: 516, class: 'hand', 'font-size': 17, fill: 'var(--ink)' }, gGuide);
-  note.textContent = opts.note ?? '在看你。';
-  note.style.opacity = reduce ? '1' : '0';
-  note.style.transition = reduce ? 'none' : 'opacity .8s ease 3.4s';
-  pen(gGuide, 'M500 506 C548 492 556 452 540 420', 't', 3.4, 1.4);
-
-  // ── 编排
   setTimeout(() => {
     svg.classList.add('go');
-    note.style.opacity = '1';
     glints.forEach((g) => (g.style.opacity = '1'));
   }, reduce ? 0 : 250);
   setTimeout(() => svg.classList.add('done'), reduce ? 0 : 7200);
 
-  // ── 指针跟踪 + 眨眼 + 线抖
   const turb = document.getElementById('boil-a');
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  // 手机上把眼睛裁近一点：虹膜和内眼角占满宽度，批注也读得出来
   const small = matchMedia('(max-width: 900px)');
   const crop = () => svg.setAttribute('viewBox', small.matches ? '110 20 790 520' : '0 0 900 540');
   crop();
@@ -241,7 +214,6 @@ export function mountEye(svg: SVGSVGElement, opts: EyeOptions = {}): void {
         ox += (tx - ox) * 0.12; oy += (ty - oy) * 0.12;
         place();
         if (opts.closed) {
-          // 闭着：点一下睁开一瞬
           if (blinkAt) {
             const t = (now - blinkAt) / 1400;
             if (t >= 1) { blinkAt = 0; k = 0.06; } else k = 0.06 + Math.sin(t * Math.PI) * 0.9;

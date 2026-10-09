@@ -4,7 +4,6 @@ import { getPosts, summaryOf } from '../lib/posts';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** 订阅地址一直是 /atom.xml，和 Hexo 时代保持一致，已订阅的人不用换。 */
 export async function GET(context: APIContext) {
   const base = (context.site ?? new URL(site.url)).toString().replace(/\/$/, '');
   const posts = (await getPosts()).slice(0, 20);

@@ -1,4 +1,3 @@
-/** 阅读页：顶上一条红色的进度线，目录里点亮当前读到的那一节。 */
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const bar = document.getElementById('progress');
 if (bar && !reduce) {

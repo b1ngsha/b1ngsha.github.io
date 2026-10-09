@@ -1,4 +1,3 @@
-# 系列登记表。新增系列：在这里加一条，再在文章头信息里写 series: <id>
 - id: kubernetes
   name: Kubernetes
   description: 极客时间《深入剖析 Kubernetes》课程学习笔记

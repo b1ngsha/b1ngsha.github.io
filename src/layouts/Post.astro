@@ -16,22 +16,23 @@ interface Props {
 }
 const { post, series, headings, prev, next, description } = Astro.props;
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const lang = /[\u3400-\u9fff]/.test(post.data.title + (post.body ?? '').slice(0, 300)) ? 'zh-CN' : 'en';
 ---
-<Base title={post.data.title} description={description} type="article" current="posts">
+<Base title={post.data.title} description={description} type="article" current="posts" lang={lang}>
   <div class="progress" id="progress" aria-hidden="true"></div>
   <article class="read">
     <div class={toc.length > 1 ? 'read-grid' : 'read-grid no-toc'}>
       <div>
         <header class="read-head">
           <p class="crumb">
-            <a href="/posts/">文章</a>
+            <a href="/posts/">Writing</a>
             {series && <> / <a href={`/series/${series.id}/`}>{series.data.name}</a></>}
           </p>
           <h1>{post.data.title}</h1>
           <div class="read-meta">
             <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
-            {series && post.data.part && <span>第 {post.data.part} 篇</span>}
-            {post.data.updated && <span>更新于 {formatDate(post.data.updated)}</span>}
+            {series && post.data.part && <span>Part {post.data.part}</span>}
+            {post.data.updated && <span>Updated {formatDate(post.data.updated)}</span>}
             {post.data.tags.map((t) => <a class="tag" href={`/tags/${t}/`}>#{tagLabel(t)}</a>)}
           </div>
           <svg class="read-rule go" viewBox="0 0 640 14" preserveAspectRatio="none" aria-hidden="true"><path class="ln t" pathLength="1" style="--dl:.3s;--dur:1.6s" d="M2 8 C100 3 200 12 320 7 S560 10 638 5" /></svg>
@@ -40,15 +41,15 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
           <slot />
         </div>
         {(prev || next) && (
-          <nav class="series-nav" aria-label="系列里的上一篇和下一篇">
-            {prev ? <a class="prev" href={`/posts/${prev.id}/`}><span>上一篇</span><b>{prev.data.title}</b></a> : <span />}
-            {next ? <a class="next" href={`/posts/${next.id}/`}><span>下一篇</span><b>{next.data.title}</b></a> : <span />}
+          <nav class="series-nav" aria-label="Previous and next in this series">
+            {prev ? <a class="prev" href={`/posts/${prev.id}/`}><span>Previous</span><b>{prev.data.title}</b></a> : <span />}
+            {next ? <a class="next" href={`/posts/${next.id}/`}><span>Next</span><b>{next.data.title}</b></a> : <span />}
           </nav>
         )}
         <Giscus />
       </div>
       {toc.length > 1 && (
-        <aside class="toc" aria-label="目录">
+        <aside class="toc" aria-label="Contents">
           <ol>
             {toc.map((h) => <li class={`h${h.depth}`}><a href={`#${h.slug}`} data-slug={h.slug}>{h.text}</a></li>)}
           </ol>

@@ -1,6 +1,11 @@
 ---
 import '@fontsource-variable/noto-serif-sc';
-import '@fontsource-variable/bodoni-moda/wght-italic.css';
+import '@fontsource/im-fell-double-pica/400.css';
+import '@fontsource/im-fell-double-pica/400-italic.css';
+import '@fontsource/spectral/300.css';
+import '@fontsource/spectral/400.css';
+import '@fontsource/spectral/400-italic.css';
+import '@fontsource/spectral/500.css';
 import 'lxgw-wenkai-webfont/lxgwwenkai-light.css';
 import 'lxgw-wenkai-webfont/lxgwwenkai-regular.css';
 import '../styles/tokens.css';
@@ -16,14 +21,16 @@ interface Props {
   noindex?: boolean;
   footer?: boolean;
   isHome?: boolean;
-  current?: 'now' | 'years' | 'posts' | 'search';
+  current?: 'experience' | 'posts' | 'search';
+  /** 页面语言：界面是英文；文章页按正文语言设 */
+  lang?: string;
 }
-const { title, description = site.description, type = 'website', noindex = false, footer = true, isHome = false, current } = Astro.props;
+const { title, description = site.description, type = 'website', noindex = false, footer = true, isHome = false, current, lang = 'en' } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : site.name;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
-<html lang="zh-CN" data-theme="light">
+<html lang={lang} data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,7 +46,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary" />
     {noindex && <meta name="robots" content="noindex" />}
     <script is:inline>
@@ -54,7 +61,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </script>
   </head>
   <body>
-    <a class="skip" href="#main">跳到正文</a>
+    <a class="skip" href="#main">Skip to content</a>
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
       <filter id="boil-a-f" x="-3%" y="-3%" width="106%" height="106%">
         <feTurbulence id="boil-a" type="fractalNoise" baseFrequency=".018 .022" numOctaves="2" seed="3" />

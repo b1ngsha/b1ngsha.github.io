@@ -122,3 +122,19 @@
   .idx .cat { order: 3; }
   .lost .eye { aspect-ratio: 790 / 520; max-height: none; }
 }
+
+.split { display: grid; grid-template-columns: minmax(0, 1fr) 17em; gap: clamp(28px, 5vw, 72px); align-items: start; }
+.split aside { position: sticky; top: 90px; }
+.side-h { font: 400 22px / 1.2 var(--display); padding-bottom: 8px; border-bottom: 1.5px solid var(--ink); margin: 0 0 6px; }
+.split aside .side-h:not(:first-child) { margin-top: 28px; }
+.split .chips { margin-top: 10px; }
+.tally { list-style: none; }
+.tally li { display: grid; grid-template-columns: 8em 1fr; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--faint); font-size: 14.5px; }
+.tally a { text-decoration: none; }
+.tally a:hover { text-decoration: underline; text-decoration-color: var(--red); }
+.tally .n { font: italic 400 13px var(--latin); color: var(--mute); margin-left: 6px; }
+.tally svg { height: 22px; width: 100%; }
+.more { margin-top: 18px; font: 400 15px var(--hand); }
+.more a { text-decoration: none; }
+.more a:hover { text-decoration: underline; text-decoration-color: var(--red); }
+@media (max-width: 900px) { .split { grid-template-columns: 1fr; } .split aside { position: static; } }

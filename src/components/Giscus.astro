@@ -4,7 +4,7 @@ const g = site.giscus;
 const ready = Boolean(g.repoId && g.categoryId);
 ---
 {ready && (
-  <section class="comments" id="comments" aria-label="评论" data-repo={g.repo} data-repo-id={g.repoId} data-category={g.category} data-category-id={g.categoryId}>
+  <section class="comments" id="comments" aria-label="Comments" data-repo={g.repo} data-repo-id={g.repoId} data-category={g.category} data-category-id={g.categoryId}>
     <div class="giscus"></div>
   </section>
 )}
@@ -28,7 +28,7 @@ const ready = Boolean(g.repoId && g.categoryId);
       s.setAttribute('data-emit-metadata', '0');
       s.setAttribute('data-input-position', 'top');
       s.setAttribute('data-theme', theme());
-      s.setAttribute('data-lang', 'zh-CN');
+      s.setAttribute('data-lang', 'en');
       host.appendChild(s);
     };
     new IntersectionObserver((es, io) => {

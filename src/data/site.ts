@@ -1,11 +1,11 @@
 export const site = {
   name: 'About Cheyne',
-  handle: '冰沙',
-  latin: 'Cheyne · b1ngsha',
+  handle: 'Cheyne',
+  alias: 'b1ngsha',
   url: 'https://b1ngsha.site',
-  description: '冰沙（Cheyne）的个人主页：近况、年谱，和写过的笔记。',
-  intro: '在腾讯做蓝鲸智云体系的平台 SaaS 开发，下班后学 infra。',
-  coda: '好想再去\n一次日本。',
+  description: 'Cheyne (b1ngsha): software engineer. Experience, and notes on infrastructure, Rust and C++.',
+  tagline: 'Software engineer',
+  intro: 'Tencent IEG → Xspark AI. Platform SaaS by day; infrastructure, Rust and C++ by night.',
   links: {
     github: 'https://github.com/b1ngsha',
     x: 'https://x.com/B1ngsha',
@@ -19,5 +19,4 @@ export const site = {
     category: 'Announcements',
     categoryId: 'DIC_kwDOLgWEis4DHYhx',
   },
-  homePostCount: 8,
 } as const;

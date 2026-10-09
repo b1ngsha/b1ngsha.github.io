@@ -6,10 +6,10 @@ import { tagLabel } from '../../lib/format';
 
 const tags = allTags(await getPosts());
 ---
-<Base title="标签" description="跨系列检索文章的关键词。" current="posts">
+<Base title="Tags" description="Keywords that cut across series." current="posts">
   <div class="list">
     <div class="wrap">
-      <h1 class="page-title">标签</h1>
+      <h1 class="page-title">Tags</h1>
       <p class="chips">
         {tags.map((t) => <a href={`/tags/${t.tag}/`}>#{tagLabel(t.tag)} · {t.count}</a>)}
       </p>

@@ -9,10 +9,10 @@ const series = (await getSeries())
   .filter((x) => x.n > 0)
   .sort((a, b) => b.n - a.n);
 ---
-<Base title="系列" description="按主题连续写下来的笔记。" current="posts">
+<Base title="Series" description="Notes written in sequence, by topic." current="posts">
   <div class="list">
     <div class="wrap">
-      <h1 class="page-title">系列</h1>
+      <h1 class="page-title">Series</h1>
       <ol class="idx">
         {series.map(({ s, n }) => (
           <li><span class="part">{String(n).padStart(2, '0')}</span><a class="t" href={`/series/${s.id}/`}><span>{s.data.name}</span></a><span class="cat">{s.data.description}</span></li>

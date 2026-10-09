@@ -1,5 +1,4 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { site } from '../data/site';
 
 export type Post = CollectionEntry<'posts'>;
 export type Series = CollectionEntry<'series'>;
@@ -28,12 +27,6 @@ export function allTags(posts: Post[]): { tag: string; count: number }[] {
   const m = new Map<string, number>();
   posts.forEach((p) => p.data.tags.forEach((t) => m.set(t, (m.get(t) ?? 0) + 1)));
   return [...m].map(([tag, count]) => ({ tag, count })).sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
-}
-
-export function homePosts(posts: Post[]): Post[] {
-  const pinned = posts.filter((p) => p.data.featured);
-  const rest = posts.filter((p) => !p.data.featured);
-  return [...pinned, ...rest].slice(0, site.homePostCount);
 }
 
 export function summaryOf(post: Post, max = 110): string {

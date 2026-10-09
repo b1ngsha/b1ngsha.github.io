@@ -1,24 +1,25 @@
+# Series registry. To add one: add an entry here, then use `series: <id>` in a post's front matter.
 - id: kubernetes
   name: Kubernetes
-  description: 极客时间《深入剖析 Kubernetes》课程学习笔记
+  description: Notes from the Geektime course "Deep Dive into Kubernetes".
 - id: modern-cpp
-  name: 现代 C++
-  description: 《现代 C++ 32 讲》学习笔记
+  name: Modern C++
+  description: Notes from the course "Modern C++ in 32 Lectures".
 - id: rust
   name: Rust
-  description: 《The Rust Programming Language》学习笔记
+  description: Notes on The Rust Programming Language.
 - id: missing-semester
   name: Missing Semester
-  description: MIT Missing Semester 课程学习笔记
+  description: Notes from MIT's Missing Semester course.
 - id: design-patterns
-  name: 设计模式
-  description: 设计模式学习笔记
+  name: Design Patterns
+  description: Notes on the classic design patterns.
 - id: go
   name: Go
-  description: Go 语言入门和标准库源码精读
+  description: Getting started with Go, and reading the standard library.
 - id: makefile
   name: makefile
-  description: 《跟我一起写 Makefile》学习笔记
+  description: Notes on writing Makefiles.
 - id: refactoring
-  name: 重构
-  description: 《重构》学习笔记
+  name: Refactoring
+  description: Notes on Refactoring.

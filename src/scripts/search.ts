@@ -25,10 +25,10 @@ async function run() {
   list.replaceChildren();
   if (!q) { note.textContent = ''; return; }
   const e = await engine();
-  if (!e) { note.textContent = '搜索索引只在构建之后才有，本地请先运行 npm run build 再 npm run preview。'; return; }
+  if (!e) { note.textContent = 'The search index only exists after a build. Run npm run build, then npm run preview.'; return; }
   const r = await e.search(q);
   const hits = await Promise.all(r.results.slice(0, 12).map((x) => x.data()));
-  note.textContent = hits.length ? `${r.results.length} 个结果` : '没有找到。换个词试试？';
+  note.textContent = hits.length ? `${r.results.length} result${r.results.length === 1 ? '' : 's'}` : 'Nothing found. Try another word?';
   for (const h of hits) {
     const li = document.createElement('li');
     const a = document.createElement('a');

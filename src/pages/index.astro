@@ -1,136 +1,69 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import PostRow from '../components/PostRow.astro';
 import Contact from '../components/Contact.astro';
 import { site } from '../data/site';
-import { formatDate } from '../lib/format';
-import { getPosts, getSeries, homePosts } from '../lib/posts';
-import { catSketch, fujiSketch, lilySketch, tallySketch, todoBox } from '../art/sketches';
+import { heroArt, butterfly } from '../art/hero';
 import '../styles/home.css';
-import '../styles/post.css';
 
-const posts = await getPosts();
-const seriesAll = await getSeries();
-const seriesName = new Map(seriesAll.map((s) => [s.id, s.data.name]));
-
-const nowAll = (await getCollection('now')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const now = nowAll[0];
-const { Content: NowBody } = now ? await render(now) : { Content: undefined };
-
-const timeline = (await getCollection('timeline')).sort((a, b) => a.data.order - b.data.order);
-
-const counts = seriesAll
-  .map((s) => ({ id: s.id, name: s.data.name, count: posts.filter((p) => p.data.series?.id === s.id).length }))
-  .filter((s) => s.count > 0)
-  .sort((a, b) => b.count - a.count);
-const loose = posts.filter((p) => !p.data.series).length;
-
-const quoteLines = (now?.data.quote ?? '').split('\n');
-const mark = now?.data.mark;
-const shown = homePosts(posts);
-const [coda1, coda2] = site.coda.split('\n');
+const experience = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
+const logos = import.meta.glob<{ default: string }>('../assets/logos/*', { eager: true, query: '?url', import: 'default' });
+const logoUrl = (name: string) => (name ? (logos[`../assets/logos/${name}`] as unknown as string | undefined) : undefined);
+const art = heroArt();
 ---
-<Base isHome footer={false} description={site.description}>
+<Base isHome description={site.description}>
   <div class="hero" id="top">
-    <svg class="eye" id="eye" viewBox="0 0 900 540" role="img" aria-label="一只睁开的眼睛，瞳孔会跟着鼠标转"></svg>
-    <div class="name">
-      <h1>{site.handle}</h1>
-      <span class="latin">{site.latin}</span>
-    </div>
-    <p class="intro">{site.intro}</p>
-  </div>
-
-  <div class="sheet">
-    {now && (
-      <section id="now" aria-labelledby="now-h">
-        <h2 id="now-h">近况</h2>
-        <div class="now-body">
-          <figure class="sketch" data-rough>
-            <Fragment set:html={catSketch()} />
-            <figcaption>蛋挞</figcaption>
-          </figure>
-          <div class="prose-now">
-            <time class="stamp" datetime={now.data.date.toISOString()}>{formatDate(now.data.date)}</time>
-            {now.data.quote && (
-              <p class="big" id="quote">
-                {quoteLines.map((line, i) => {
-                  const k = mark ? line.indexOf(mark) : -1;
-                  return (
-                    <>
-                      {i > 0 && <br />}
-                      {k < 0 ? line : <>{line.slice(0, k)}<span class="mk">{mark}</span>{line.slice(k + (mark?.length ?? 0))}</>}
-                    </>
-                  );
-                })}
-              </p>
-            )}
-            {NowBody && <NowBody />}
-            {now.data.plans.length > 0 && (
-              <>
-                {now.data.plansTitle && <p class="todo-title">{now.data.plansTitle}</p>}
-                <ul class="todo" id="todo">
-                  {now.data.plans.map((p, i) => <li><Fragment set:html={todoBox(i)} /><span>{p}</span></li>)}
-                </ul>
-              </>
-            )}
-            {nowAll.length > 1 && <a class="more-link" href="/now/">以前的近况 <svg class="arrow" viewBox="0 0 28 16"><path d="M2 9 C10 7 18 9 26 8 M20 2 L26 8 L20 14" /></svg></a>}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <section id="years" aria-labelledby="years-h">
-      <h2 id="years-h">年谱</h2>
-      <div class="ent-wrap" id="entwrap">
-        <svg class="vine" id="vine" aria-hidden="true"></svg>
-        {timeline.map((t) => (
-          <div class={t.data.next ? 'ent next' : 'ent'}>
-            <span class="d">{t.data.when}</span>
-            <div><h3>{t.data.title}</h3><p>{t.data.text}</p></div>
-          </div>
-        ))}
-        <Fragment set:html={lilySketch()} />
+    <div class="stage">
+      <div class="hero-copy">
+        <h1>{site.handle}</h1>
+        <p class="alias">{site.alias}</p>
+        <p class="intro">{site.intro}</p>
+        <Contact />
       </div>
-    </section>
+      <svg class="hero-art" id="hero-art" viewBox="150 70 670 620" role="img"
+        aria-label="A cluster of red spider lilies with a butterfly that lands on the petals, on the first letter of the name, and follows the pointer"
+        data-landings={JSON.stringify(art.landings)} data-cx={art.centre[0]} data-cy={art.centre[1]}>
+        <g class="lily"><Fragment set:html={art.svg} /></g>
+        <Fragment set:html={butterfly()} />
+      </svg>
+    </div>
   </div>
 
-  <section id="posts" aria-labelledby="posts-h">
+  <section id="experience" aria-labelledby="exp-h">
     <div class="wrap">
-      <h2 id="posts-h">文章</h2>
-      <div class="posts">
-        <ol class="idx">
-          {shown.map((p) => <PostRow post={p} seriesName={p.data.series ? seriesName.get(p.data.series.id) : ''} />)}
-        </ol>
-        <div>
-          <ul class="tally" id="tally">
-            {counts.map((s, i) => (
-              <li><span><a href={`/series/${s.id}/`}>{s.name}</a><span class="n">{s.count}</span></span><Fragment set:html={tallySketch(s.count, i)} /></li>
-            ))}
-            {loose > 0 && <li><span>其他<span class="n">{loose}</span></span><Fragment set:html={tallySketch(loose, counts.length)} /></li>}
-          </ul>
-          <p class="more"><a href="/posts/">全部 {posts.length} 篇</a><a href={site.links.rss}>RSS</a></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="coda" aria-label="联系方式">
-    <div class="wrap coda-grid">
-      <Fragment set:html={fujiSketch()} />
-      <div class="sign">
-        <p class="big">{coda1}<br />{coda2}</p>
-        <ul class="contact">
-          <li><span>GitHub</span><a href={site.links.github}>b1ngsha</a></li>
-          <li><span>X</span><a href={site.links.x}>@B1ngsha</a></li>
-          <li><span>Telegram</span><a href={site.links.telegram}>@b1ngsha</a></li>
-          <li><span>Email</span><Contact /></li>
-        </ul>
-      </div>
+      <h2 id="exp-h">Experience</h2>
+      <ol class="exp">
+        {experience.map((e) => {
+          const url = logoUrl(e.data.logo);
+          const teamUrl = logoUrl(e.data.teamLogo);
+          return (
+            <li class="job">
+              <div class="mark">
+                {url ? <img class="logo" src={url} alt={e.data.company} loading="lazy" /> : <span class="name">{e.data.company}</span>}
+                {e.data.team && (
+                  <>
+                    <svg class="split" viewBox="0 0 10 44" aria-hidden="true"><path d="M8 2 C3 14 7 28 2 42" /></svg>
+                    {teamUrl ? <img class="logo team" src={teamUrl} alt={e.data.team} loading="lazy" /> : <span class="name">{e.data.team}</span>}
+                  </>
+                )}
+              </div>
+              {(e.data.role || e.data.period || e.data.points.length > 0) && (
+                <div class="body">
+                  {(e.data.role || e.data.period) && <p class="meta">{[e.data.role, e.data.period].filter(Boolean).join(' · ')}</p>}
+                  {e.data.points.length > 0 && <ul>{e.data.points.map((p) => <li>{p}</li>)}</ul>}
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ol>
     </div>
   </section>
 
   <script>
-    import '../scripts/home';
+    import { mountHero } from '../scripts/hero';
+    import '../scripts/reveal';
+    const svg = document.getElementById('hero-art') as unknown as SVGSVGElement | null;
+    if (svg) mountHero(svg, { nameSelector: '.hero-copy h1' });
   </script>
 </Base>

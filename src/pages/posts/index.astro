@@ -4,10 +4,16 @@ import PostRow from '../../components/PostRow.astro';
 import '../../styles/post.css';
 import { allTags, getPosts, getSeries } from '../../lib/posts';
 import { tagLabel } from '../../lib/format';
+import { tallySketch } from '../../art/sketches';
 
 const posts = await getPosts();
-const series = (await getSeries()).filter((s) => posts.some((p) => p.data.series?.id === s.id));
-const name = new Map(series.map((s) => [s.id, s.data.name]));
+const all = await getSeries();
+const counts = all
+  .map((s) => ({ id: s.id, name: s.data.name, count: posts.filter((p) => p.data.series?.id === s.id).length }))
+  .filter((s) => s.count > 0)
+  .sort((a, b) => b.count - a.count);
+const loose = posts.filter((p) => !p.data.series).length;
+const name = new Map(all.map((s) => [s.id, s.data.name]));
 const tags = allTags(posts);
 const byYear = new Map<string, typeof posts>();
 posts.forEach((p) => {
@@ -15,24 +21,39 @@ posts.forEach((p) => {
   byYear.set(y, [...(byYear.get(y) ?? []), p]);
 });
 ---
-<Base title="文章" description={`${posts.length} 篇笔记，按年份排列，可以按系列和标签筛选。`} current="posts">
+<Base title="Writing" description={`${posts.length} notes on infrastructure, Rust, C++ and Go, by year and by series.`} current="posts">
   <div class="list">
     <div class="wrap">
-      <h1 class="page-title">文章 <small>{posts.length} 篇</small></h1>
-      <p class="chips" aria-label="系列">
-        {series.map((s) => <a href={`/series/${s.id}/`}>{s.data.name}</a>)}
-      </p>
-      <p class="chips" aria-label="标签">
-        {tags.map((t) => <a href={`/tags/${t.tag}/`}>#{tagLabel(t.tag)}</a>)}
-      </p>
-      {[...byYear].map(([year, list]) => (
-        <div class="group">
-          <h2>{year} <small>{list.length}</small></h2>
-          <ol class="idx">
-            {list.map((p) => <PostRow post={p} seriesName={p.data.series ? name.get(p.data.series.id) : ''} />)}
-          </ol>
+      <h1 class="page-title">Writing <small>{posts.length} notes</small></h1>
+      <div class="split">
+        <div>
+          {[...byYear].map(([year, list]) => (
+            <div class="group">
+              <h2>{year} <small>{list.length}</small></h2>
+              <ol class="idx">
+                {list.map((p) => <PostRow post={p} seriesName={p.data.series ? name.get(p.data.series.id) : ''} />)}
+              </ol>
+            </div>
+          ))}
         </div>
-      ))}
+        <aside>
+          <h2 class="side-h">Series</h2>
+          <ul class="tally" data-reveal>
+            {counts.map((s, i) => (
+              <li><span><a href={`/series/${s.id}/`}>{s.name}</a><span class="n">{s.count}</span></span><Fragment set:html={tallySketch(s.count, i)} /></li>
+            ))}
+            {loose > 0 && <li><span>Other<span class="n">{loose}</span></span><Fragment set:html={tallySketch(loose, counts.length)} /></li>}
+          </ul>
+          <h2 class="side-h">Tags</h2>
+          <p class="chips">
+            {tags.map((t) => <a href={`/tags/${t.tag}/`}>{tagLabel(t.tag)}</a>)}
+          </p>
+          <p class="more"><a href={'/atom.xml'}>RSS feed</a></p>
+        </aside>
+      </div>
     </div>
   </div>
+  <script>
+    import '../../scripts/reveal';
+  </script>
 </Base>

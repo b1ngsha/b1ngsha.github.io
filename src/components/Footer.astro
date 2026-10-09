@@ -1,16 +1,15 @@
 ---
 import { site } from '../data/site';
 import Contact from './Contact.astro';
+const year = new Date().getFullYear();
 ---
 <footer class="foot">
   <div class="row">
-    <span>{site.handle} · Cheyne</span>
-    <span class="links">
-      <a href={site.links.github}>GitHub</a>
-      <a href={site.links.x}>X</a>
-      <a href={site.links.telegram}>Telegram</a>
-      <Contact />
-      <a href={site.links.rss}>RSS</a>
-    </span>
+    <p class="who"><span>{site.handle}</span> <i>{site.alias}</i></p>
+    <Contact rss />
+  </div>
+  <div class="row small">
+    <span>© {year} {site.handle}</span>
+    <a class="top-link" href="#main">Back to top <svg class="arrow up" viewBox="0 0 16 28" aria-hidden="true"><path d="M8 26 C9 18 7 10 8 2 M2 8 L8 2 L14 8" /></svg></a>
   </div>
 </footer>

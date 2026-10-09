@@ -18,7 +18,6 @@ const posts = defineCollection({
       tags: z.array(z.string().regex(/^[a-z0-9-]+$/, '标签只能是小写英文、数字和连字符')).default([]),
       summary: z.string().optional(),
       draft: z.boolean().default(false),
-      featured: z.boolean().default(false),
     })
     .refine((d) => !d.series || d.part !== undefined, { message: '属于系列的文章必须写 part（序号）', path: ['part'] }),
 });
@@ -31,26 +30,20 @@ const series = defineCollection({
   }),
 });
 
-const now = defineCollection({
-  loader: glob({ base: './src/content/now', pattern: '*.md' }),
+/** 工作经历：每条是一家公司（或部门）。logo 是 src/assets/logos/ 里的文件名，可以留空 */
+const experience = defineCollection({
+  loader: file('./src/content/experience.yml'),
   schema: z.object({
-    date: z.coerce.date(),
-    quote: z.string().optional(),
-    mark: z.string().optional(),
-    plans: z.array(z.string()).default([]),
-    plansTitle: z.string().optional(),
-  }),
-});
-
-const timeline = defineCollection({
-  loader: file('./src/content/timeline.yml'),
-  schema: z.object({
+    /** 排序用，小的在前（从早到晚）；中间留空档方便插队 */
     order: z.number(),
-    when: z.string(),
-    title: z.string(),
-    text: z.string(),
-    next: z.boolean().default(false),
+    company: z.string(),
+    logo: z.string().default(''),
+    team: z.string().default(''),
+    teamLogo: z.string().default(''),
+    role: z.string().default(''),
+    period: z.string().default(''),
+    points: z.array(z.string()).default([]),
   }),
 });
 
-export const collections = { posts, series, now, timeline };
+export const collections = { posts, series, experience };

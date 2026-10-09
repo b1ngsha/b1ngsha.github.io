@@ -13,14 +13,14 @@ const { tag } = Astro.params;
 const posts = (await getPosts()).filter((p) => p.data.tags.includes(tag));
 const name = new Map((await getSeries()).map((s) => [s.id, s.data.name]));
 ---
-<Base title={`#${tagLabel(tag)}`} description={`带 ${tagLabel(tag)} 标签的 ${posts.length} 篇文章。`} current="posts">
+<Base title={`#${tagLabel(tag)}`} description={`${posts.length} notes tagged ${tagLabel(tag)}.`} current="posts">
   <div class="list">
     <div class="wrap">
-      <h1 class="page-title">#{tagLabel(tag)} <small>{posts.length} 篇</small></h1>
+      <h1 class="page-title">#{tagLabel(tag)} <small>{posts.length} notes</small></h1>
       <ol class="idx">
         {posts.map((p) => <PostRow post={p} seriesName={p.data.series ? name.get(p.data.series.id) : ''} />)}
       </ol>
-      <p class="chips"><a href="/tags/">所有标签</a><a href="/posts/">全部文章</a></p>
+      <p class="chips"><a href="/tags/">All tags</a><a href="/posts/">All writing</a></p>
     </div>
   </div>
 </Base>

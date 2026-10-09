@@ -1,0 +1,18 @@
+# Work experience, oldest first. The logo already carries the company name, so there is no separate title.
+# `logo`: a file in src/assets/logos/.
+# `team` / `teamLogo`: the department inside the company, drawn after a thin divider (optional).
+- id: tencent-ieg
+  order: 10
+  company: Tencent
+  logo: tencent.svg
+  team: BlueKing
+  teamLogo: bluekin.png
+  points:
+    - Platform SaaS in the BlueKing product family (Django and Gin), across several projects.
+- id: xspark-ai
+  order: 20
+  company: Xspark AI
+  logo: xspark-ai.png
+  points:
+    - Architecture design and full-stack development.
+    - Own the design, build and operation of the website, data pipelines and evaluation systems.

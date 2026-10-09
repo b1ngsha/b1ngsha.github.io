@@ -1,18 +1,25 @@
 ---
 import Base from '../layouts/Base.astro';
+import { heroArt, butterfly } from '../art/hero';
+import '../styles/home.css';
 import '../styles/post.css';
+const art = heroArt();
 ---
-<Base title="找不到这一页" noindex footer={false}>
+<Base title="Page not found" noindex footer={false}>
   <div class="lost">
     <div>
-      <svg class="eye" id="eye" viewBox="0 0 900 540" role="img" aria-label="一只闭着的眼睛；点一下会睁开一瞬"></svg>
+      <svg class="hero-art" id="hero-art" viewBox="150 70 670 620" role="img" aria-label="Red spider lilies and a butterfly that cannot find a place to land"
+        data-landings={JSON.stringify(art.landings)} data-cx={art.centre[0]} data-cy={art.centre[1]}>
+        <g class="lily"><Fragment set:html={art.svg} /></g>
+        <Fragment set:html={butterfly()} />
+      </svg>
       <h1>404</h1>
-      <p>这一页不在了。<a href="/">回到首页</a>，或者<a href="/search/">搜一搜</a>。</p>
+      <p>This page is not here. <a href="/">Back to the home page</a>, or <a href="/search/">search</a>.</p>
     </div>
   </div>
   <script>
-    import { mountEye } from '../scripts/eye';
-    const eye = document.getElementById('eye') as unknown as SVGSVGElement | null;
-    if (eye) mountEye(eye, { closed: true });
+    import { mountHero } from '../scripts/hero';
+    const svg = document.getElementById('hero-art') as unknown as SVGSVGElement | null;
+    if (svg) mountHero(svg, { lost: true });
   </script>
 </Base>

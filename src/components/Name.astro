@@ -1,0 +1,6 @@
+---
+/** 名字里的数字单独用正文衬线体：标题字体的数字是老式的，“1” 会被读成大写 I。 */
+interface Props { text: string }
+const parts = Astro.props.text.split(/(\d+)/).filter(Boolean);
+---
+{parts.map((p) => (/^\d+$/.test(p) ? <span class="num">{p}</span> : p))}

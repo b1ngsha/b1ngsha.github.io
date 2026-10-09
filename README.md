@@ -1,6 +1,6 @@
-# About Cheyne
+# b1ngsha
 
-冰沙（Cheyne）的个人主页：近况、年谱，和写过的笔记。线稿风格，Astro 构建的纯静态站点，部署在 GitHub Pages，网址 <https://b1ngsha.site>。
+b1ngsha（aka Cheyne）的个人主页：经历，和写过的笔记。线稿风格，Astro 构建的纯静态站点，部署在 GitHub Pages，网址 <https://b1ngsha.site>。
 
 术语见 [GLOSSARY.md](./GLOSSARY.md)，产品背景见 [PRODUCT.md](./PRODUCT.md)，重要的技术决定见 [docs/adr/](./docs/adr)。
 

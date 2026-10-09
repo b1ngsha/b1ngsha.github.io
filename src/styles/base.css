@@ -88,3 +88,6 @@ img { max-width: 100%; height: auto; }
 .ico { width: 17px; height: 17px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s ease, transform 0.4s var(--ease); }
 .contact a:hover .ico, .contact a:focus-visible .ico { stroke: var(--red); transform: translateY(-1px) rotate(-6deg); }
 
+
+/* 名字里的数字：标题字体只有老式数字，这里换成正文衬线体的 1 */
+.num { font-family: var(--serif); font-style: inherit; font-weight: 400; }

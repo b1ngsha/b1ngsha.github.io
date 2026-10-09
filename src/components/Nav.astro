@@ -1,10 +1,11 @@
 ---
 import { site } from '../data/site';
+import Name from './Name.astro';
 interface Props { isHome?: boolean; current?: 'experience' | 'posts' | 'search' }
 const { isHome = false, current } = Astro.props;
 ---
 <header class="top">
-  <a class="mark" href="/" aria-label={`${site.name}, home`}>Cheyne</a>
+  <a class="mark" href="/" aria-label={`${site.name}, home`}><Name text={site.handle} /></a>
   <nav aria-label="Main">
     <a href={isHome ? '#experience' : '/#experience'} aria-current={current === 'experience' ? 'page' : undefined}>Experience</a>
     <a href="/posts/" aria-current={current === 'posts' ? 'page' : undefined}>Writing</a>

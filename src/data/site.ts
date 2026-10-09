@@ -1,10 +1,10 @@
 export const site = {
-  name: 'About Cheyne',
-  handle: 'Cheyne',
-  /** 只在首屏那一句话里出现一次 */
-  alias: 'b1ngsha',
+  name: 'b1ngsha',
+  handle: 'b1ngsha',
+  /** 只在首屏那一句话里出现一次（aka） */
+  alias: 'Cheyne',
   url: 'https://b1ngsha.site',
-  description: 'Cheyne works in embodied AI and wants to build infrastructure. Experience, and notes on infrastructure, Rust and C++.',
+  description: 'b1ngsha (aka Cheyne) works in embodied AI and wants to build infrastructure. Experience, and notes on infrastructure, Rust and C++.',
   links: {
     github: 'https://github.com/b1ngsha',
     x: 'https://x.com/B1ngsha',

@@ -28,7 +28,7 @@ web
 
 已定下来的（见 `docs/adr/` 和 `GLOSSARY.md`）：
 
-- 站点名叫 “About Cheyne”，首页大字是「冰沙」。
+- 站点名叫 “b1ngsha”（别名 Cheyne，只在首屏那句话里出现一次）。
 - 用 Astro 构建纯静态站点，文章仍是仓库里的 Markdown；构建命令 `npm run build`，本地预览 `npm run dev`。
 - 部署在 GitHub Pages，域名 `b1ngsha.site`（DNS 在火山引擎）。国内访问不理想时再换 Cloudflare Pages。
 - 现有 74 篇文章全部保留，分成「系列」和「标签」；网址改成 `/posts/<slug>/`，老网址生成跳转页，订阅地址仍是 `/atom.xml`。

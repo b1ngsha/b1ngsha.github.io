@@ -15,9 +15,10 @@ const art = heroArt();
   <div class="hero" id="top">
     <div class="stage">
       <div class="hero-copy">
-        <h1>{site.handle}</h1>
-        <p class="alias">{site.alias}</p>
-        <p class="intro">{site.intro}</p>
+        <h1>
+          <span class="nm">{site.handle}</span><span class="sr-only">,</span>
+          <span class="say">also known as {site.alias}, works in embodied&nbsp;AI and wants to build the infrastructure it will run&nbsp;on.</span>
+        </h1>
         <Contact />
       </div>
       <svg class="hero-art" id="hero-art" viewBox="150 70 670 620" role="img"
@@ -42,7 +43,7 @@ const art = heroArt();
                 {url ? <img class="logo" src={url} alt={e.data.company} loading="lazy" /> : <span class="name">{e.data.company}</span>}
                 {e.data.team && (
                   <>
-                    <svg class="split" viewBox="0 0 10 44" aria-hidden="true"><path d="M8 2 C3 14 7 28 2 42" /></svg>
+                    <svg class="job-sep" viewBox="0 0 10 44" aria-hidden="true"><path d="M8 2 C3 14 7 28 2 42" /></svg>
                     {teamUrl ? <img class="logo team" src={teamUrl} alt={e.data.team} loading="lazy" /> : <span class="name">{e.data.team}</span>}
                   </>
                 )}
@@ -64,6 +65,6 @@ const art = heroArt();
     import { mountHero } from '../scripts/hero';
     import '../scripts/reveal';
     const svg = document.getElementById('hero-art') as unknown as SVGSVGElement | null;
-    if (svg) mountHero(svg, { nameSelector: '.hero-copy h1' });
+    if (svg) mountHero(svg, { nameSelector: '.hero-copy .nm' });
   </script>
 </Base>

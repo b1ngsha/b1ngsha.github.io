@@ -27,9 +27,10 @@
 .go .splat { opacity: 1; }
 .dust { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
 .hero-copy { position: absolute; left: 0; bottom: 4px; z-index: 3; max-width: 46%; }
-.hero-copy h1 { font: 400 clamp(92px, 12.6vw, 196px) / 0.88 var(--display); letter-spacing: -0.012em; margin-left: -0.03em; }
-.hero-copy .alias { margin-top: 12px; font: italic 400 clamp(17px, 1.6vw, 21px) var(--hand); letter-spacing: 0.03em; color: var(--mute); }
-.hero-copy .intro { margin-top: 14px; font-size: 17px; line-height: 1.65; max-width: 24em; }
+.hero-copy h1 { font-weight: 400; margin-left: -0.02em; }
+.hero-copy .nm { display: block; font: 400 clamp(60px, 6.9vw, 108px) / 0.95 var(--display); letter-spacing: -0.012em; }
+.hero-copy .say { display: block; margin-top: 14px; max-width: 17em; font: italic 400 clamp(21px, 2vw, 29px) / 1.32 var(--display); letter-spacing: 0.002em; color: var(--ink); }
+
 /* —— 通用 —— */
 .home section { position: relative; padding: clamp(40px, 7vh, 72px) var(--gutter) 0; }
 .home #experience { padding-bottom: clamp(64px, 11vh, 120px); }
@@ -48,7 +49,7 @@
 .logo { display: block; height: 30px; width: auto; max-width: 100%; filter: brightness(0); } /* 标志统一画成墨色，和页面的一色原则一致 */
 :root[data-theme='dark'] .logo { filter: brightness(0) invert(0.93); }
 .logo.team { height: 60px; }
-.job .split { width: 10px; height: 44px; flex: none; fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linecap: round; opacity: 0.55; }
+.job .job-sep { width: 10px; height: 44px; flex: none; fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linecap: round; opacity: 0.55; }
 .job .name { font: 400 clamp(24px, 2.2vw, 30px) / 1.2 var(--display); }
 .job .meta { font: 400 14.5px var(--hand); color: var(--mute); letter-spacing: 0.02em; }
 .job ul { list-style: none; max-width: 42em; }
@@ -65,5 +66,5 @@
   .job .mark { flex-wrap: wrap; gap: 10px 12px; }
   .logo { height: 26px; }
   .logo.team { height: 52px; }
-  .job .split { height: 36px; }
+  .job .job-sep { height: 36px; }
 }

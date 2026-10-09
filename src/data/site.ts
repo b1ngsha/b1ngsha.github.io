@@ -1,11 +1,10 @@
 export const site = {
   name: 'About Cheyne',
   handle: 'Cheyne',
+  /** 只在首屏那一句话里出现一次 */
   alias: 'b1ngsha',
   url: 'https://b1ngsha.site',
-  description: 'Cheyne (b1ngsha): software engineer. Experience, and notes on infrastructure, Rust and C++.',
-  tagline: 'Software engineer',
-  intro: 'Tencent IEG → Xspark AI. Platform SaaS by day; infrastructure, Rust and C++ by night.',
+  description: 'Cheyne works in embodied AI and wants to build infrastructure. Experience, and notes on infrastructure, Rust and C++.',
   links: {
     github: 'https://github.com/b1ngsha',
     x: 'https://x.com/B1ngsha',

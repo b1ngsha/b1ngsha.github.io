@@ -5,7 +5,7 @@ html { background: var(--paper); scroll-behavior: smooth; -webkit-text-size-adju
 body {
   font: 400 16px/1.95 var(--serif);
   color: var(--ink);
-  background: var(--grain), var(--paper);
+  background: var(--grain), var(--fibre), var(--paper);
   overflow-x: clip;
   caret-color: var(--red);
   scrollbar-color: var(--mute) transparent;
@@ -74,7 +74,6 @@ img { max-width: 100%; height: auto; }
 .foot .row { max-width: 1360px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 14px 32px; justify-content: space-between; align-items: center; font: 400 14px var(--hand); color: var(--mute); }
 .foot .row:first-child { border-top: 1px solid var(--ink); padding-top: 22px; }
 .foot .who { font: 400 22px var(--display); color: var(--ink); }
-.foot .who i { font: italic 400 16px var(--latin); color: var(--mute); margin-left: 8px; }
 .foot .contact { margin: 0; padding: 0; border: 0; font-size: 14.5px; color: var(--ink); }
 .foot .row.small { margin-top: 38px; font-size: 13.5px; }
 .foot .top-link { text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }

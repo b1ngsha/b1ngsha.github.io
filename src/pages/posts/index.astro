@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PostRow from '../../components/PostRow.astro';
+import '../../styles/home.css';
 import '../../styles/post.css';
 import { allTags, getPosts, getSeries } from '../../lib/posts';
 import { tagLabel } from '../../lib/format';
@@ -22,35 +23,37 @@ posts.forEach((p) => {
 });
 ---
 <Base title="Writing" description={`${posts.length} notes on infrastructure, Rust, C++ and Go, by year and by series.`} current="posts">
-  <div class="list">
+  <div class="list writing">
     <div class="wrap">
-      <h1 class="page-title">Writing <small>{posts.length} notes</small></h1>
-      <div class="split">
-        <div>
-          {[...byYear].map(([year, list]) => (
-            <div class="group">
-              <h2>{year} <small>{list.length}</small></h2>
-              <ol class="idx">
-                {list.map((p) => <PostRow post={p} seriesName={p.data.series ? name.get(p.data.series.id) : ''} />)}
-              </ol>
-            </div>
+      <header class="w-head">
+        <h1 class="page-title">Writing</h1>
+        <p class="w-count">{posts.length} notes since 2024</p>
+      </header>
+
+      <section class="w-filter" aria-label="Browse by series" data-reveal>
+        <ul class="w-series">
+          {counts.map((s, i) => (
+            <li>
+              <a href={`/series/${s.id}/`}><span class="n">{s.name}</span><span class="c">{s.count}</span></a>
+              <Fragment set:html={tallySketch(s.count, i)} />
+            </li>
           ))}
-        </div>
-        <aside>
-          <h2 class="side-h">Series</h2>
-          <ul class="tally" data-reveal>
-            {counts.map((s, i) => (
-              <li><span><a href={`/series/${s.id}/`}>{s.name}</a><span class="n">{s.count}</span></span><Fragment set:html={tallySketch(s.count, i)} /></li>
-            ))}
-            {loose > 0 && <li><span>Other<span class="n">{loose}</span></span><Fragment set:html={tallySketch(loose, counts.length)} /></li>}
-          </ul>
-          <h2 class="side-h">Tags</h2>
-          <p class="chips">
-            {tags.map((t) => <a href={`/tags/${t.tag}/`}>{tagLabel(t.tag)}</a>)}
-          </p>
-          <p class="more"><a href={'/atom.xml'}>RSS feed</a></p>
-        </aside>
-      </div>
+          {loose > 0 && <li><span class="lab"><span class="n">Other</span><span class="c">{loose}</span></span><Fragment set:html={tallySketch(loose, counts.length)} /></li>}
+        </ul>
+        <p class="w-tags" aria-label="Browse by tag">
+          {tags.map((t) => <a href={`/tags/${t.tag}/`}>{tagLabel(t.tag)}</a>)}
+        </p>
+      </section>
+
+      {[...byYear].map(([year, list]) => (
+        <section class="w-year">
+          <h2><span>{year}</span><small>{list.length}</small></h2>
+          <ol class="idx">
+            {list.map((p) => <PostRow post={p} short seriesName={p.data.series ? name.get(p.data.series.id) : ''} />)}
+          </ol>
+        </section>
+      ))}
+      <p class="more"><a href="/atom.xml">RSS feed</a></p>
     </div>
   </div>
   <script>

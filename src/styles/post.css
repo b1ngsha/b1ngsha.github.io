@@ -123,18 +123,35 @@
   .lost .eye { aspect-ratio: 790 / 520; max-height: none; }
 }
 
-.split { display: grid; grid-template-columns: minmax(0, 1fr) 17em; gap: clamp(28px, 5vw, 72px); align-items: start; }
-.split aside { position: sticky; top: 90px; }
-.side-h { font: 400 22px / 1.2 var(--display); padding-bottom: 8px; border-bottom: 1.5px solid var(--ink); margin: 0 0 6px; }
-.split aside .side-h:not(:first-child) { margin-top: 28px; }
-.split .chips { margin-top: 10px; }
-.tally { list-style: none; }
-.tally li { display: grid; grid-template-columns: 8em 1fr; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--faint); font-size: 14.5px; }
-.tally a { text-decoration: none; }
-.tally a:hover { text-decoration: underline; text-decoration-color: var(--red); }
-.tally .n { font: italic 400 13px var(--latin); color: var(--mute); margin-left: 6px; }
-.tally svg { height: 22px; width: 100%; }
-.more { margin-top: 18px; font: 400 15px var(--hand); }
-.more a { text-decoration: none; }
-.more a:hover { text-decoration: underline; text-decoration-color: var(--red); }
-@media (max-width: 900px) { .split { grid-template-columns: 1fr; } .split aside { position: static; } }
+/* —— Writing：年份在左，列表占满右边；系列和标签收成顶上一条 —— */
+.writing .wrap { max-width: 1180px; }
+.w-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; padding-bottom: 12px; border-bottom: 1.5px solid var(--ink); }
+.w-head .page-title { border: 0; padding: 0; }
+.w-count { font: italic 400 17px var(--latin); color: var(--mute); }
+.w-filter { padding: 22px 0 26px; border-bottom: 1px solid var(--faint); }
+.w-series { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px 20px; }
+.w-series li { display: grid; gap: 3px; }
+.w-series li > a, .w-series li { font-size: 15px; }
+.w-series .lab, .w-series a { display: inline-flex; align-items: baseline; gap: 8px; text-decoration: none; width: fit-content; }
+.w-series a:hover .n { text-decoration: underline; text-decoration-color: var(--red); }
+.w-series .c { font: italic 400 13px var(--latin); color: var(--mute); }
+.w-series svg { height: 18px; width: 100%; max-width: 150px; }
+.w-tags { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 4px 18px; font: 400 14px var(--hand); color: var(--mute); }
+.w-tags a { text-decoration: none; }
+.w-tags a::before { content: '#'; color: var(--red); margin-right: 1px; }
+.w-tags a:hover { color: var(--ink); text-decoration: underline; text-decoration-color: var(--red); }
+.w-year { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 0 24px; padding: 30px 0 6px; align-items: start; }
+.w-year h2 { position: sticky; top: 84px; display: block; font: 400 clamp(40px, 4vw, 56px) / 1 var(--display); letter-spacing: -0.01em; padding: 0; border: 0; }
+.w-year h2 small { display: block; margin-top: 6px; font: italic 400 15px var(--latin); color: var(--mute); }
+.writing .idx { margin-top: 0; border-top: 1px solid var(--ink); }
+.writing .idx li { grid-template-columns: 4.2em minmax(0, 1fr) auto; gap: 14px 22px; padding: 12px 0; }
+.writing .idx a.t { font-size: 17.5px; line-height: 1.45; }
+.writing .idx time { font-size: 15px; }
+.writing .idx .cat { font-size: 13.5px; text-align: right; white-space: nowrap; }
+@media (max-width: 760px) {
+  .w-year { grid-template-columns: 1fr; padding-top: 24px; }
+  .w-year h2 { position: static; display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+  .w-year h2 small { margin: 0; }
+  .writing .idx li { grid-template-columns: 1fr; gap: 2px; }
+  .writing .idx .cat { text-align: left; order: 3; }
+}

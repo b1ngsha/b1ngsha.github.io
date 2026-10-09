@@ -4,7 +4,7 @@ export const site = {
   /** 只在首屏那一句话里出现一次（aka） */
   alias: 'Cheyne',
   url: 'https://b1ngsha.site',
-  description: 'b1ngsha (aka Cheyne) works in embodied AI and wants to build infrastructure. Experience, and notes on infrastructure, Rust and C++.',
+  description: 'b1ngsha (aka Cheyne). A Fullstack Engineer at day, a infrastructure enthusiast at night. Experience, and notes on infrastructure, Rust and C++.',
   links: {
     github: 'https://github.com/b1ngsha',
     x: 'https://x.com/B1ngsha',

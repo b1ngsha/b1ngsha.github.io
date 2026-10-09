@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
+import { site } from '../data/site';
+import { heroArt, butterfly } from '../art/hero';
+import '../styles/home.css';
+
+const experience = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
+const logos = import.meta.glob<{ default: string }>('../assets/logos/*', { eager: true, query: '?url', import: 'default' });
+const logoUrl = (name: string) => (name ? (logos[`../assets/logos/${name}`] as unknown as string | undefined) : undefined);
+const art = heroArt();
+---
+<Base isHome description={site.description}>
+  <div class="hero" id="top">
+    <div class="stage">
+      <div class="hero-copy">
+        <h1>
+          <span class="nm">{site.handle}</span><span class="sr-only">,</span>
+          <span class="say">also known as {site.alias}, works in embodied&nbsp;AI and wants to build the infrastructure it will run&nbsp;on.</span>
+        </h1>
+        <Contact />
+      </div>
+      <svg class="hero-art" id="hero-art" viewBox="150 70 670 620" role="img"
+        aria-label="A cluster of red spider lilies with a butterfly that lands on the petals, on the first letter of the name, and follows the pointer"
+        data-landings={JSON.stringify(art.landings)} data-cx={art.centre[0]} data-cy={art.centre[1]}>
+        <g class="lily"><Fragment set:html={art.svg} /></g>
+        <Fragment set:html={butterfly()} />
+      </svg>
+    </div>
+  </div>
+
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="wrap">
+      <h2 id="exp-h">Experience</h2>
+      <ol class="exp">
+        {experience.map((e) => {
+          const url = logoUrl(e.data.logo);
+          const teamUrl = logoUrl(e.data.teamLogo);
+          return (
+            <li class="job">
+              <div class="mark">
+                {url ? <img class="logo" src={url} alt={e.data.company} loading="lazy" /> : <span class="name">{e.data.company}</span>}
+                {e.data.team && (
+                  <>
+                    <svg class="job-sep" viewBox="0 0 10 44" aria-hidden="true"><path d="M8 2 C3 14 7 28 2 42" /></svg>
+                    {teamUrl ? <img class="logo team" src={teamUrl} alt={e.data.team} loading="lazy" /> : <span class="name">{e.data.team}</span>}
+                  </>
+                )}
+              </div>
+              {(e.data.role || e.data.period || e.data.points.length > 0) && (
+                <div class="body">
+                  {(e.data.role || e.data.period) && <p class="meta">{[e.data.role, e.data.period].filter(Boolean).join(' · ')}</p>}
+                  {e.data.points.length > 0 && <ul>{e.data.points.map((p) => <li>{p}</li>)}</ul>}
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  </section>
+
+  <script>
+    import { mountHero } from '../scripts/hero';
+    import '../scripts/reveal';
+    const svg = document.getElementById('hero-art') as unknown as SVGSVGElement | null;
+    if (svg) mountHero(svg, { nameSelector: '.hero-copy .nm' });
+  </script>
+</Base>

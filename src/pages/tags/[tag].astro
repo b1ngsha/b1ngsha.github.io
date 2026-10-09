@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostRow from '../../components/PostRow.astro';
+import '../../styles/post.css';
+import { allTags, getPosts, getSeries } from '../../lib/posts';
+import { tagLabel } from '../../lib/format';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return allTags(posts).map(({ tag }) => ({ params: { tag } }));
+}
+const { tag } = Astro.params;
+const posts = (await getPosts()).filter((p) => p.data.tags.includes(tag));
+const name = new Map((await getSeries()).map((s) => [s.id, s.data.name]));
+---
+<Base title={`#${tagLabel(tag)}`} description={`${posts.length} notes tagged ${tagLabel(tag)}.`} current="posts">
+  <div class="list">
+    <div class="wrap">
+      <h1 class="page-title">#{tagLabel(tag)} <small>{posts.length} notes</small></h1>
+      <ol class="idx">
+        {posts.map((p) => <PostRow post={p} seriesName={p.data.series ? name.get(p.data.series.id) : ''} />)}
+      </ol>
+      <p class="chips"><a href="/tags/">All tags</a><a href="/posts/">All writing</a></p>
+    </div>
+  </div>
+</Base>

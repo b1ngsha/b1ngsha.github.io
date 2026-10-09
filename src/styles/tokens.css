@@ -1,0 +1,38 @@
+:root {
+  --paper: #f3ecdf;
+  --ink: #121211;
+  --mute: #5a574d;
+  --faint: rgba(18, 18, 17, 0.16);
+  --red: #c41230;
+  /* 彼岸花：比点缀用的红更亮，是页面里最醒目的颜色 */
+  --bloom: #e3162f;
+  --code-bg: #e9e1d2;
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+
+  /* 纸的纤维：极淡的横向丝络，让底色像纸，不像一块灰 */
+  --fibre: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.01 .22' numOctaves='3' seed='6'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .36  0 0 0 0 .2  0 0 0 1.1 -.52'/></filter><rect width='100%' height='100%' filter='url(%23f)' opacity='.1'/></svg>");
+
+  --serif: 'Spectral', 'Noto Serif SC Variable', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+  --latin: 'IM Fell Double Pica', 'Spectral', serif;
+  /* 标题用 IM Fell Double Pica：老活字的毛边，和油画般发糊的画面是一路的；中文标题落到文楷 */
+  --display: 'IM Fell Double Pica', 'LXGW WenKai', 'Kaiti SC', 'STKaiti', serif;
+  --hand: 'Spectral', 'LXGW WenKai', 'Kaiti SC', serif;
+  --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --gutter: clamp(20px, 3.4vw, 52px);
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --paper: #151514;
+  --ink: #ecebe6;
+  --mute: #a2a198;
+  --faint: rgba(236, 235, 230, 0.16);
+  --red: #ff5468;
+  --bloom: #ff3b52;
+  --code-bg: #1d1d1b;
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --fibre: none;
+  color-scheme: dark;
+}

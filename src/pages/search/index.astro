@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/post.css';
+---
+<Base title="Search" description="Search all the notes." current="search">
+  <div class="list">
+    <div class="wrap">
+      <h1 class="page-title">Search</h1>
+      <form class="search-box" role="search" onsubmit="return false">
+        <label class="sr-only" for="q">Search the notes</label>
+        <input id="q" type="search" placeholder="What are you looking for?" autocomplete="off" autofocus />
+      </form>
+      <p class="search-note" id="note" aria-live="polite"></p>
+      <ol class="results" id="results"></ol>
+    </div>
+  </div>
+  <script>
+    import '../../scripts/search';
+  </script>
+</Base>

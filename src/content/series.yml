@@ -1,0 +1,25 @@
+# Series registry. To add one: add an entry here, then use `series: <id>` in a post's front matter.
+- id: kubernetes
+  name: Kubernetes
+  description: Notes from the Geektime course "Deep Dive into Kubernetes".
+- id: modern-cpp
+  name: Modern C++
+  description: Notes from the course "Modern C++ in 32 Lectures".
+- id: rust
+  name: Rust
+  description: Notes on The Rust Programming Language.
+- id: missing-semester
+  name: Missing Semester
+  description: Notes from MIT's Missing Semester course.
+- id: design-patterns
+  name: Design Patterns
+  description: Notes on the classic design patterns.
+- id: go
+  name: Go
+  description: Getting started with Go, and reading the standard library.
+- id: makefile
+  name: makefile
+  description: Notes on writing Makefiles.
+- id: refactoring
+  name: Refactoring
+  description: Notes on Refactoring.

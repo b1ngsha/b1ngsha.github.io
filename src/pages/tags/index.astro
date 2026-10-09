@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/post.css';
+import { allTags, getPosts } from '../../lib/posts';
+import { tagLabel } from '../../lib/format';
+
+const tags = allTags(await getPosts());
+---
+<Base title="Tags" description="Keywords that cut across series." current="posts">
+  <div class="list">
+    <div class="wrap">
+      <h1 class="page-title">Tags</h1>
+      <p class="chips">
+        {tags.map((t) => <a href={`/tags/${t.tag}/`}>#{tagLabel(t.tag)} · {t.count}</a>)}
+      </p>
+    </div>
+  </div>
+</Base>

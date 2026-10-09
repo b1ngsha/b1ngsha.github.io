@@ -1,0 +1,86 @@
+---
+import '@fontsource-variable/noto-serif-sc';
+import '@fontsource/im-fell-double-pica/400.css';
+import '@fontsource/im-fell-double-pica/400-italic.css';
+import '@fontsource/spectral/300.css';
+import '@fontsource/spectral/400.css';
+import '@fontsource/spectral/400-italic.css';
+import '@fontsource/spectral/500.css';
+import 'lxgw-wenkai-webfont/lxgwwenkai-light.css';
+import 'lxgw-wenkai-webfont/lxgwwenkai-regular.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  footer?: boolean;
+  isHome?: boolean;
+  current?: 'experience' | 'posts' | 'search';
+  /** 页面语言：界面是英文；文章页按正文语言设 */
+  lang?: string;
+}
+const { title, description = site.description, type = 'website', noindex = false, footer = true, isHome = false, current, lang = 'en' } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : site.name;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang={lang} data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/atom+xml" title={site.name} href={site.links.rss} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f3ecdf" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#151514" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <script is:inline>
+      (function () {
+        var r = document.documentElement;
+        r.classList.add('js');
+        var t = null;
+        try { t = localStorage.getItem('theme'); } catch (e) {}
+        if (t !== 'dark' && t !== 'light') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        r.dataset.theme = t;
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <filter id="boil-a-f" x="-3%" y="-3%" width="106%" height="106%">
+        <feTurbulence id="boil-a" type="fractalNoise" baseFrequency=".018 .022" numOctaves="2" seed="3" />
+        <feDisplacementMap in="SourceGraphic" scale="3.4" />
+      </filter>
+      <filter id="boil-b-f" x="-3%" y="-3%" width="106%" height="106%">
+        <feTurbulence id="boil-b" type="fractalNoise" baseFrequency=".03 .035" numOctaves="2" seed="8" />
+        <feDisplacementMap in="SourceGraphic" scale="2.2" />
+      </filter>
+    </svg>
+    <Nav isHome={isHome} current={current} />
+    <main id="main" class={isHome ? 'home' : undefined}>
+      <slot />
+    </main>
+    {footer && <Footer />}
+    <script>
+      import '../scripts/theme';
+      import '../scripts/boil';
+      import '../scripts/contact';
+    </script>
+  </body>
+</html>

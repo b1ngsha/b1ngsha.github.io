@@ -1,0 +1,14 @@
+---
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+interface Props { /** 'hero' 带图标，页脚用同样的样式 */ rss?: boolean }
+const { rss = false } = Astro.props;
+---
+<ul class="contact">
+  <li><a href={site.links.github}><Icon name="github" />GitHub</a></li>
+  <li><a href={site.links.x}><Icon name="x" />X</a></li>
+  <li><a href={site.links.telegram}><Icon name="telegram" />Telegram</a></li>
+  <!-- 邮箱地址不写在页面里：脚本在加载后才把它拼进链接。没有脚本时只显示文字 -->
+  <li><span data-mail-user={site.email.user} data-mail-host={site.email.host}><Icon name="email" />Email</span></li>
+  {rss && <li><a href={site.links.rss}><Icon name="rss" />RSS</a></li>}
+</ul>

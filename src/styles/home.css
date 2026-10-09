@@ -1,0 +1,70 @@
+/* —— 首屏：名字和花是一个整体，紧挨着，蝴蝶会在两者之间飞 —— */
+.hero { padding: clamp(72px, 9vh, 96px) var(--gutter) 0; }
+.stage { position: relative; max-width: 1360px; margin: 0 auto; min-height: clamp(520px, 82vh, 780px); }
+.hero-art { position: absolute; right: 0; bottom: 0; width: min(70%, 930px); height: auto; overflow: visible; transform-origin: 55% 100%; z-index: 4; pointer-events: none; will-change: transform; }
+.hero-art .bf { opacity: 0; }
+.petal { stroke: none; }
+.anther { fill: var(--ink); }
+.js .petal, .js .anther { opacity: 0; transition: opacity 1.4s ease var(--dl, 2s); }
+.js .go .petal, .js .go .anther { opacity: 1; }
+:root[data-theme='dark'] .petal { fill-opacity: 0.92; }
+/* 蝴蝶：炭黑的翅膜透出暗红，翅脉是淡粉，边上一圈红斑，表面撒着颜料颗粒；暗色主题里整体变亮 */
+.bw { fill: url(#bwg); stroke: none; }
+.edge { fill: none; stroke: #1a0d0f; stroke-width: 1.3; stroke-linejoin: round; opacity: 0.7; }
+.vein { fill: none; stroke: #f6c4c8; stroke-width: 0.9; stroke-linecap: round; opacity: 0.55; }
+.vein.fine { stroke-width: 0.5; opacity: 0.45; }
+.sheen { fill: #f6c4c8; opacity: 0.11; }
+.sheen.s2 { opacity: 0.08; }
+.blush { fill: #e3162f; opacity: 0.92; }
+.spots circle { fill: #f6c4c8; opacity: 0.9; }
+.bbody { fill: #0c0809; }
+.bseg { fill: none; stroke: #4a2327; stroke-width: 0.7; }
+.ant { fill: none; stroke: #0c0809; stroke-width: 1.15; stroke-linecap: round; }
+:root[data-theme='dark'] .edge { stroke: #f3b9bf; stroke-width: 1.2; }
+:root[data-theme='dark'] .bbody, :root[data-theme='dark'] .ant { fill: #ecebe6; stroke: none; }
+:root[data-theme='dark'] .ant { fill: none; stroke: #ecebe6; }
+.splat { opacity: 0; transition: opacity 1.6s ease var(--dl, 3s); }
+.go .splat { opacity: 1; }
+.dust { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+.hero-copy { position: absolute; left: 0; bottom: 4px; z-index: 3; max-width: 46%; }
+.hero-copy h1 { font-weight: 400; margin-left: -0.02em; }
+.hero-copy .nm { display: block; font: 400 clamp(60px, 6.9vw, 108px) / 0.95 var(--display); letter-spacing: -0.012em; }
+.hero-copy .say { display: block; margin-top: 14px; max-width: 17em; font: italic 400 clamp(21px, 2vw, 29px) / 1.32 var(--display); letter-spacing: 0.002em; color: var(--ink); }
+
+/* —— 通用 —— */
+.home section { position: relative; padding: clamp(40px, 7vh, 72px) var(--gutter) 0; }
+.home #experience { padding-bottom: clamp(64px, 11vh, 120px); }
+.wrap { max-width: 1360px; margin: 0 auto; }
+.home h2, .page-title {
+  font: 400 clamp(32px, 3.2vw, 44px) / 1.1 var(--display); letter-spacing: -0.01em;
+  padding-bottom: 10px; border-bottom: 1.5px solid var(--ink);
+  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+}
+.page-title { font-size: clamp(42px, 4.6vw, 64px); }
+
+/* —— 工作经历：一行一家，左边是标志，右边是一句话 —— */
+.exp { list-style: none; margin-top: 2px; }
+.job { display: grid; grid-template-columns: minmax(300px, 400px) minmax(0, 1fr); gap: 20px 40px; align-items: center; padding: 26px 0; border-bottom: 1px solid var(--faint); }
+.job .mark { display: flex; align-items: center; gap: 14px; min-height: 60px; }
+.logo { display: block; height: 30px; width: auto; max-width: 100%; filter: brightness(0); } /* 标志统一画成墨色，和页面的一色原则一致 */
+:root[data-theme='dark'] .logo { filter: brightness(0) invert(0.93); }
+.logo.team { height: 60px; }
+.job .job-sep { width: 10px; height: 44px; flex: none; fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linecap: round; opacity: 0.55; }
+.job .name { font: 400 clamp(24px, 2.2vw, 30px) / 1.2 var(--display); }
+.job .meta { font: 400 14.5px var(--hand); color: var(--mute); letter-spacing: 0.02em; }
+.job ul { list-style: none; max-width: 42em; }
+.job li { position: relative; padding-left: 1.3em; font-size: 16px; line-height: 1.65; }
+.job li::before { content: ''; position: absolute; left: 0; top: 0.85em; width: 0.8em; height: 1px; background: var(--ink); }
+
+@media (max-width: 900px) {
+  .hero { padding-top: 76px; }
+  .stage { min-height: 0; display: flex; flex-direction: column; }
+  .hero-art { order: -1; position: relative; right: auto; bottom: auto; width: 100%; max-width: 520px; margin: 0 auto; display: block; }
+  .hero-copy { position: relative; max-width: none; margin-top: -6%; padding-bottom: 24px; }
+  .hero-copy h1 { font-size: clamp(76px, 22vw, 124px); }
+  .job { grid-template-columns: 1fr; gap: 12px; padding: 22px 0; }
+  .job .mark { flex-wrap: wrap; gap: 10px 12px; }
+  .logo { height: 26px; }
+  .logo.team { height: 52px; }
+  .job .job-sep { height: 36px; }
+}

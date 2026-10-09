@@ -1,0 +1,19 @@
+---
+import { site } from '../data/site';
+interface Props { isHome?: boolean; current?: 'experience' | 'posts' | 'search' }
+const { isHome = false, current } = Astro.props;
+---
+<header class="top">
+  <a class="mark" href="/" aria-label={`${site.name}, home`}>Cheyne</a>
+  <nav aria-label="Main">
+    <a href={isHome ? '#experience' : '/#experience'} aria-current={current === 'experience' ? 'page' : undefined}>Experience</a>
+    <a href="/posts/" aria-current={current === 'posts' ? 'page' : undefined}>Writing</a>
+    <a class="icon" href="/search/" aria-label="Search" aria-current={current === 'search' ? 'page' : undefined}>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" /><path d="M12.6 12.8 L17 17.2" /></svg>
+    </a>
+    <button class="icon" id="theme-toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+      <svg class="sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" /><path d="M10 2.2v2.2M10 15.6v2.2M2.2 10h2.2M15.6 10h2.2M4.5 4.5l1.6 1.6M13.9 13.9l1.6 1.6M4.5 15.5l1.6-1.6M13.9 6.1l1.6-1.6" /></svg>
+      <svg class="moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.2A7 7 0 1 1 7.8 3.5a5.6 5.6 0 0 0 8.7 8.7Z" /></svg>
+    </button>
+  </nav>
+</header>

@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/post.css';
+import { getPosts, getSeries } from '../../lib/posts';
+
+const posts = await getPosts();
+const series = (await getSeries())
+  .map((s) => ({ s, n: posts.filter((p) => p.data.series?.id === s.id).length }))
+  .filter((x) => x.n > 0)
+  .sort((a, b) => b.n - a.n);
+---
+<Base title="Series" description="Notes written in sequence, by topic." current="posts">
+  <div class="list">
+    <div class="wrap">
+      <h1 class="page-title">Series</h1>
+      <ol class="idx">
+        {series.map(({ s, n }) => (
+          <li><span class="part">{String(n).padStart(2, '0')}</span><a class="t" href={`/series/${s.id}/`}><span>{s.data.name}</span></a><span class="cat">{s.data.description}</span></li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</Base>

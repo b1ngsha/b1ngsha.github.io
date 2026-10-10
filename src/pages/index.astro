@@ -4,13 +4,12 @@ import Base from '../layouts/Base.astro';
 import Contact from '../components/Contact.astro';
 import Name from '../components/Name.astro';
 import { site } from '../data/site';
-import { heroArt, butterfly } from '../art/hero';
+import HeroArt from '../components/HeroArt.astro';
 import '../styles/home.css';
 
 const experience = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
 const logos = import.meta.glob<{ default: string }>('../assets/logos/*', { eager: true, query: '?url', import: 'default' });
 const logoUrl = (name: string) => (name ? (logos[`../assets/logos/${name}`] as unknown as string | undefined) : undefined);
-const art = heroArt();
 ---
 <Base isHome description={site.description}>
   <div class="hero" id="top">
@@ -18,16 +17,11 @@ const art = heroArt();
       <div class="hero-copy">
         <h1>
           <span class="nm"><Name text={site.handle} /></span><span class="sr-only">. </span>
-          <span class="say"><span class="aka">aka {site.alias}</span><span class="line">A Fullstack Engineer at day,</span><span class="line">a infrastructure enthusiast at night</span></span>
+          <span class="say"><span class="aka">aka {site.alias}</span><span class="line">A Fullstack Engineer at day,</span><span class="line">an infrastructure enthusiast at night</span></span>
         </h1>
         <Contact />
       </div>
-      <svg class="hero-art" id="hero-art" viewBox="150 70 670 620" role="img"
-        aria-label="A cluster of red spider lilies with a butterfly that lands on the petals, on the first letter of the name, and follows the pointer"
-        data-landings={JSON.stringify(art.landings)} data-cx={art.centre[0]} data-cy={art.centre[1]}>
-        <g class="lily"><Fragment set:html={art.svg} /></g>
-        <Fragment set:html={butterfly()} />
-      </svg>
+      <HeroArt />
     </div>
   </div>
 
@@ -65,7 +59,7 @@ const art = heroArt();
   <script>
     import { mountHero } from '../scripts/hero';
     import '../scripts/reveal';
-    const svg = document.getElementById('hero-art') as unknown as SVGSVGElement | null;
-    if (svg) mountHero(svg, { nameSelector: '.hero-copy .nm' });
+    const art = document.getElementById('hero-art');
+    if (art) mountHero(art, { nameSelector: '.hero-copy .nm' });
   </script>
 </Base>

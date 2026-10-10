@@ -1,0 +1,29 @@
+---
+import { BOKEH, VIEW_BOX, PAINT_BOX, butterflyBody, heroArt } from '../art/hero';
+const art = heroArt();
+const pct = (v: number, base: number, size: number) => `${(((v - base) / size) * 100).toFixed(3)}%`;
+const paint = {
+  left: pct(PAINT_BOX.x, VIEW_BOX.x, VIEW_BOX.w),
+  top: pct(PAINT_BOX.y, VIEW_BOX.y, VIEW_BOX.h),
+  width: `${((PAINT_BOX.w / VIEW_BOX.w) * 100).toFixed(3)}%`,
+  height: `${((PAINT_BOX.h / VIEW_BOX.h) * 100).toFixed(3)}%`,
+};
+---
+<!-- 三层：墨线（浏览器里一笔笔画）→ 上色的静态图（画完淡入）→ 蝴蝶（贴图，靠 CSS 变换飞） -->
+<div class="hero-art" id="hero-art" role="img"
+  aria-label="Red spider lilies and a butterfly that lands on the petals, on the first letter of the name, and follows the pointer"
+  data-landings={JSON.stringify(art.landings)} data-cx={art.centre[0]} data-cy={art.centre[1]}>
+  <svg class="live" viewBox={`${VIEW_BOX.x} ${VIEW_BOX.y} ${VIEW_BOX.w} ${VIEW_BOX.h}`} aria-hidden="true">
+    <Fragment set:html={art.live} />
+  </svg>
+  <img class="paint paint-light" src="/hero-painted-light.svg" alt="" aria-hidden="true" decoding="async" style={`left:${paint.left};top:${paint.top};width:${paint.width};height:${paint.height}`} />
+  <img class="paint paint-dark" src="/hero-painted-dark.svg" alt="" aria-hidden="true" decoding="async" style={`left:${paint.left};top:${paint.top};width:${paint.width};height:${paint.height}`} />
+  {BOKEH.map(([x, y, r], i) => (
+    <i class="bokeh" aria-hidden="true" style={`left:${pct(x - r, VIEW_BOX.x, VIEW_BOX.w)};top:${pct(y - r, VIEW_BOX.y, VIEW_BOX.h)};width:${((2 * r / VIEW_BOX.w) * 100).toFixed(3)}%;--d:${i * 1.3}s`}></i>
+  ))}
+  <div class="bf" id="bf" aria-hidden="true">
+    <img class="wing wl" src="/butterfly-wing.svg" alt="" width="100" height="196" decoding="async" />
+    <img class="wing wr" src="/butterfly-wing.svg" alt="" width="100" height="196" decoding="async" />
+    <Fragment set:html={butterflyBody()} />
+  </div>
+</div>

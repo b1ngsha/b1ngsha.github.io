@@ -105,7 +105,6 @@
 .search-note { margin-top: 18px; font: 400 15px var(--hand); color: var(--mute); }
 
 .lost { min-height: 100vh; padding: 0 var(--gutter); display: grid; place-items: center; text-align: center; }
-.lost .eye { position: relative; right: auto; top: auto; width: min(820px, 92vw); height: auto; max-height: 76vh; margin: 0 auto; }
 .lost h1 { font: 200 clamp(70px, 14vw, 180px) / 1 var(--serif); letter-spacing: -0.02em; }
 .lost p { font: 400 17px var(--hand); color: var(--mute); }
 
@@ -120,7 +119,6 @@
 @media (max-width: 900px) {
   .idx li { grid-template-columns: 1fr; gap: 2px; padding: 10px 0; }
   .idx .cat { order: 3; }
-  .lost .eye { aspect-ratio: 790 / 520; max-height: none; }
 }
 
 /* —— Writing：年份在左，列表占满右边；系列和标签收成顶上一条 —— */
@@ -155,3 +153,5 @@
   .writing .idx li { grid-template-columns: 1fr; gap: 2px; }
   .writing .idx .cat { text-align: left; order: 3; }
 }
+
+.lost .hero-art { position: relative; right: auto; bottom: auto; width: min(720px, 92vw); margin: 0 auto; }

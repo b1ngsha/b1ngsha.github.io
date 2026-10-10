@@ -39,7 +39,6 @@ img { max-width: 100%; height: auto; }
 .done .ln { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
 
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-  svg[data-boil].done.boil-on .lily { filter: url(#boil-b-f); }
 }
 @media (prefers-reduced-motion: reduce) {
   .js .ln { stroke-dashoffset: 0; animation: none !important; }

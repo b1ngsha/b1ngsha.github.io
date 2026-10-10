@@ -1,25 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
-import { heroArt, butterfly } from '../art/hero';
+import HeroArt from '../components/HeroArt.astro';
 import '../styles/home.css';
 import '../styles/post.css';
-const art = heroArt();
 ---
 <Base title="Page not found" noindex footer={false}>
   <div class="lost">
     <div>
-      <svg class="hero-art" id="hero-art" viewBox="150 70 670 620" role="img" aria-label="Red spider lilies and a butterfly that cannot find a place to land"
-        data-landings={JSON.stringify(art.landings)} data-cx={art.centre[0]} data-cy={art.centre[1]}>
-        <g class="lily"><Fragment set:html={art.svg} /></g>
-        <Fragment set:html={butterfly()} />
-      </svg>
+      <HeroArt />
       <h1>404</h1>
       <p>This page is not here. <a href="/">Back to the home page</a>, or <a href="/search/">search</a>.</p>
     </div>
   </div>
   <script>
     import { mountHero } from '../scripts/hero';
-    const svg = document.getElementById('hero-art') as unknown as SVGSVGElement | null;
-    if (svg) mountHero(svg, { lost: true });
+    const art = document.getElementById('hero-art');
+    if (art) mountHero(art, { lost: true });
   </script>
 </Base>

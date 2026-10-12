@@ -29,7 +29,6 @@ img { max-width: 100%; height: auto; }
 .ln.g { stroke: var(--mute); stroke-width: 0.7; opacity: 0.55; }
 .fill { fill: var(--ink); }
 .fillr { fill: var(--red); }
-.arrow { width: 28px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -2px; }
 :root[data-theme='dark'] .fill { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; }
 .js .ln { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .js .go .ln, .js .go.ln { animation: pen var(--dur, 1.4s) cubic-bezier(0.55, 0, 0.25, 1) var(--dl, 0s) forwards; }
@@ -75,9 +74,6 @@ img { max-width: 100%; height: auto; }
 .foot .who { font: 400 22px var(--display); color: var(--ink); }
 .foot .contact { margin: 0; padding: 0; border: 0; font-size: 14.5px; color: var(--ink); }
 .foot .row.small { margin-top: 38px; font-size: 13.5px; }
-.foot .top-link { text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
-.foot .top-link:hover { color: var(--red); }
-.arrow.up { width: 14px; height: 24px; vertical-align: -6px; }
 
 /* 联系方式（首屏和页脚共用） */
 .contact { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 16px; padding-top: 11px; border-top: 1px solid var(--ink); font: 400 15px var(--hand); letter-spacing: 0.02em; }

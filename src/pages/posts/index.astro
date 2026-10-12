@@ -22,24 +22,26 @@ posts.forEach((p) => {
   byYear.set(y, [...(byYear.get(y) ?? []), p]);
 });
 ---
-<Base title="Writing" description={`${posts.length} notes on infrastructure, Rust, C++ and Go, by year and by series.`} current="posts">
+<Base title="Writing" description={`${posts.length} ${posts.length === 1 ? 'note' : 'notes'}.`} current="posts">
   <div class="list writing">
     <div class="wrap">
       <header class="w-head">
         <h1 class="page-title">Writing</h1>
-        <p class="w-count">{posts.length} notes since 2024</p>
+        <p class="w-count">{posts.length} {posts.length === 1 ? 'note' : 'notes'}</p>
       </header>
 
       <section class="w-filter" aria-label="Browse by series" data-reveal>
-        <ul class="w-series">
-          {counts.map((s, i) => (
-            <li>
-              <a href={`/series/${s.id}/`}><span class="n">{s.name}</span><span class="c">{s.count}</span></a>
-              <Fragment set:html={tallySketch(s.count, i)} />
-            </li>
-          ))}
-          {loose > 0 && <li><span class="lab"><span class="n">Other</span><span class="c">{loose}</span></span><Fragment set:html={tallySketch(loose, counts.length)} /></li>}
-        </ul>
+        {counts.length > 0 && (
+          <ul class="w-series">
+            {counts.map((s, i) => (
+              <li>
+                <a href={`/series/${s.id}/`}><span class="n">{s.name}</span><span class="c">{s.count}</span></a>
+                <Fragment set:html={tallySketch(s.count, i)} />
+              </li>
+            ))}
+            {loose > 0 && <li><span class="lab"><span class="n">Other</span><span class="c">{loose}</span></span><Fragment set:html={tallySketch(loose, counts.length)} /></li>}
+          </ul>
+        )}
         <p class="w-tags" aria-label="Browse by tag">
           {tags.map((t) => <a href={`/tags/${t.tag}/`}>{tagLabel(t.tag)}</a>)}
         </p>
